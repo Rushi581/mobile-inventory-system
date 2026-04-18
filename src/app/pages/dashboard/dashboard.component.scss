@@ -1,24 +1,12 @@
-/* Dashboard Component Professional Styles */
+/* Dashboard Component Styles */
 
 :host {
-  --background: #f5f7fa;
+  --background: #f8f9fa;
 }
 
 ion-content {
-  --background: #f5f7fa;
-}
-
-/* Toolbar Styling */
-.dashboard-toolbar {
-  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --color: white;
-  --border-style: none;
-
-  ion-title {
-    font-weight: 700;
-    font-size: 20px;
-    letter-spacing: 0.3px;
-  }
+  --background: #f8f9fa;
+  --padding-bottom: 80px;
 }
 
 /* Alert Banner */
@@ -26,17 +14,17 @@ ion-content {
   display: flex;
   gap: 12px;
   align-items: flex-start;
-  padding: 14px 16px;
+  padding: 12px 16px;
   margin: 12px;
   border-radius: 10px;
   background-color: #fef3c7;
   border-left: 4px solid #f59e0b;
   color: #92400e;
-  font-size: 14px;
+  font-size: 13px;
 
   ion-icon {
     flex-shrink: 0;
-    font-size: 20px;
+    font-size: 18px;
     margin-top: 2px;
   }
 
@@ -46,12 +34,12 @@ ion-content {
     strong {
       display: block;
       font-weight: 700;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     p {
       margin: 0;
-      font-size: 13px;
+      font-size: 12px;
       opacity: 0.9;
     }
   }
@@ -173,39 +161,39 @@ ion-content {
 
 /* Detailed Stats */
 .detailed-stats {
-  padding: 0 16px 12px 16px;
+  padding: 0 12px 12px 12px;
 }
 
 .detail-card {
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   background: white;
   border: none;
   overflow: hidden;
 
   ion-card-header {
-    padding: 16px;
-    background: linear-gradient(135deg, #f0f4ff 0%, #f0fff4 100%);
+    padding: 14px;
+    background: white;
     border-bottom: 1px solid #e5e7eb;
 
     ion-card-title {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 15px;
+      gap: 8px;
+      font-size: 14px;
       font-weight: 700;
       margin: 0;
       color: #1f2937;
 
       ion-icon {
         font-size: 18px;
-        color: #667eea;
+        color: #5b5fc7;
       }
     }
   }
 
   ion-card-content {
-    padding: 16px;
+    padding: 14px;
   }
 }
 
@@ -213,17 +201,17 @@ ion-content {
 .status-list {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 14px;
 }
 
 .status-item {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .status-label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   color: #374151;
   text-transform: uppercase;
@@ -231,7 +219,7 @@ ion-content {
 }
 
 .status-bar-container {
-  height: 10px;
+  height: 8px;
   background-color: #e5e7eb;
   border-radius: 10px;
   overflow: hidden;
@@ -252,79 +240,78 @@ ion-content {
 
 /* Category Section */
 .category-section {
-  padding: 0 16px 16px 16px;
+  padding: 0 12px 16px 12px;
 }
 
 .category-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .category-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px;
+  padding: 12px;
   background-color: #f9fafb;
   border-radius: 10px;
-  border-left: 3px solid #667eea;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  border-left: 3px solid #5b5fc7;
+  transition: background-color 0.2s ease;
 
   &:active {
     background-color: #f3f4f6;
-    transform: translateY(1px);
   }
 }
 
 .category-info {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex: 1;
 }
 
 .category-name {
   font-weight: 700;
   color: #374151;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .category-percentage {
-  font-size: 12px;
+  font-size: 11px;
   color: #9ca3af;
   font-weight: 600;
-  padding: 4px 8px;
+  padding: 3px 6px;
   background-color: #eff6ff;
   border-radius: 4px;
 }
 
 ion-badge {
-  --padding-start: 12px;
-  --padding-end: 12px;
-  --border-radius: 20px;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --border-radius: 16px;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 /* Empty State */
 .empty-state {
   text-align: center;
-  padding: 40px 20px;
+  padding: 30px 20px;
   color: #6b7280;
 
   p {
     margin: 0;
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
 /* Dashboard Footer */
 .dashboard-footer {
   text-align: center;
-  padding: 20px 16px;
+  padding: 16px 12px;
   color: #9ca3af;
-  font-size: 12px;
+  font-size: 11px;
   font-style: italic;
 
   p {
@@ -424,4 +411,3 @@ ion-badge {
     color: #6b7280;
   }
 }
-
