@@ -141,7 +141,7 @@ export class Tab3Page implements OnInit, OnDestroy {
       category: this.foundItem.category
     };
 
-    this.inventoryService.updateItem(this.foundItem.itemName, updatedItem)
+    this.inventoryService.updateItem(this.foundItem.itemId!, updatedItem)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
@@ -192,7 +192,7 @@ export class Tab3Page implements OnInit, OnDestroy {
     if (!this.foundItem) return;
 
     this.isDeleting = true;
-    this.inventoryService.deleteItem(this.foundItem.itemName)
+    this.inventoryService.deleteItem(this.foundItem.itemId!)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
@@ -243,6 +243,14 @@ export class Tab3Page implements OnInit, OnDestroy {
    */
   onInputBlur(): void {
     document.body.classList.remove('keyboard-is-open');
+  }
+
+  /**
+   * Check if form field is invalid (Issue #8 - Form error display)
+   */
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.updateForm.get(fieldName);
+    return !!(field && field.invalid && (field.dirty || field.touched));
   }
 
   ngOnDestroy(): void {

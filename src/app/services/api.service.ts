@@ -58,12 +58,14 @@ export class ApiService {
    * POST - Add new item to database
    * @param item - Item object to create (server auto-generates itemId)
    * @returns Observable<Item> - Created item with server-generated ID
+   * Issue #12: Added retry for consistency with other methods
    */
   addItem(item: Item): Observable<Item> {
     // Remove itemId if present - server will auto-generate it
     const { itemId, ...itemData } = item;
     return this.http.post<Item>(this.apiUrl + '/', itemData).pipe(
       timeout(this.timeoutMs),
+      retry(this.retryAttempts),
       catchError(this.handleError)
     );
   }

@@ -37,7 +37,7 @@
 
       <div class="detail-row total-price">
         <span class="detail-label">Total Value:</span>
-        <span class="detail-value highlight">${{ (item!.quantity * item!.price) | number:'1.2-2' }}</span>
+        <span class="detail-value highlight">${{ getTotalValue(item) | number:'1.2-2' }}</span>
       </div>
     </div>
   </ion-card-content>

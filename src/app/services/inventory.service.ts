@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap, catchError, throwError } from 'rxjs';
 import { Item } from '../models/item.model';
 import { ApiService } from './api.service';
 
@@ -56,88 +56,76 @@ export class InventoryService {
   }
 
   /**
-   * Add new item
+   * Add new item - Fix Issue #11: Use proper Observable pattern instead of wrapping
    */
   addItem(item: Item): Observable<Item> {
     this.loadingSubject.next(true);
-    return new Observable(observer => {
-      this.apiService.addItem(item).subscribe({
-        next: (newItem: Item) => {
-          const currentItems = this.itemsSubject.getValue();
-          this.itemsSubject.next([...currentItems, newItem]);
-          this.loadingSubject.next(false);
-          this.errorSubject.next(null);
-          observer.next(newItem);
-          observer.complete();
-        },
-        error: (error) => {
-          this.errorSubject.next(error.message);
-          this.loadingSubject.next(false);
-          observer.error(error);
-        }
-      });
-    });
+    return this.apiService.addItem(item).pipe(
+      tap((newItem: Item) => {
+        const currentItems = this.itemsSubject.getValue();
+        this.itemsSubject.next([...currentItems, newItem]);
+        this.loadingSubject.next(false);
+        this.errorSubject.next(null);
+      }),
+      catchError(error => {
+        this.errorSubject.next(error.message);
+        this.loadingSubject.next(false);
+        return throwError(() => error);
+      })
+    );
   }
 
   /**
-   * Update existing item by name
+   * Update existing item by itemId (Issue #4: Use itemId instead of itemName)
    */
-  updateItem(itemName: string, updatedItem: Item): Observable<Item> {
+  updateItem(itemId: number, updatedItem: Item): Observable<Item> {
     this.loadingSubject.next(true);
-    return new Observable(observer => {
-      this.apiService.updateItem(itemName, updatedItem).subscribe({
-        next: (updated: Item) => {
-          const currentItems = this.itemsSubject.getValue();
-          const updatedItems = currentItems.map(item =>
-            item.itemName === itemName ? updated : item
-          );
-          this.itemsSubject.next(updatedItems);
-          this.loadingSubject.next(false);
-          this.errorSubject.next(null);
-          observer.next(updated);
-          observer.complete();
-        },
-        error: (error) => {
-          this.errorSubject.next(error.message);
-          this.loadingSubject.next(false);
-          observer.error(error);
-        }
-      });
-    });
+    return this.apiService.updateItem(itemId.toString(), updatedItem).pipe(
+      tap((updated: Item) => {
+        const currentItems = this.itemsSubject.getValue();
+        const updatedItems = currentItems.map(item =>
+          item.itemId === itemId ? updated : item
+        );
+        this.itemsSubject.next(updatedItems);
+        this.loadingSubject.next(false);
+        this.errorSubject.next(null);
+      }),
+      catchError(error => {
+        this.errorSubject.next(error.message);
+        this.loadingSubject.next(false);
+        return throwError(() => error);
+      })
+    );
   }
 
   /**
-   * Delete item by name
+   * Delete item by itemId (Issue #4: Use itemId instead of itemName)
    */
-  deleteItem(itemName: string): Observable<any> {
+  deleteItem(itemId: number): Observable<any> {
     this.loadingSubject.next(true);
-    return new Observable(observer => {
-      this.apiService.deleteItem(itemName).subscribe({
-        next: (response) => {
-          const currentItems = this.itemsSubject.getValue();
-          const filteredItems = currentItems.filter(item => item.itemName !== itemName);
-          this.itemsSubject.next(filteredItems);
-          this.loadingSubject.next(false);
-          this.errorSubject.next(null);
-          observer.next(response);
-          observer.complete();
-        },
-        error: (error) => {
-          this.errorSubject.next(error.message);
-          this.loadingSubject.next(false);
-          observer.error(error);
-        }
-      });
-    });
+    return this.apiService.deleteItem(itemId.toString()).pipe(
+      tap((response) => {
+        const currentItems = this.itemsSubject.getValue();
+        const filteredItems = currentItems.filter(item => item.itemId !== itemId);
+        this.itemsSubject.next(filteredItems);
+        this.loadingSubject.next(false);
+        this.errorSubject.next(null);
+      }),
+      catchError(error => {
+        this.errorSubject.next(error.message);
+        this.loadingSubject.next(false);
+        return throwError(() => error);
+      })
+    );
   }
 
   /**
-   * Search items by name (local search)
+   * Search items by name (local search) - Fix Issue #10: Add null check
    */
   searchItems(query: string): Item[] {
     const items = this.itemsSubject.getValue();
     return items.filter(item =>
-      item.itemName.toLowerCase().includes(query.toLowerCase())
+      (item.itemName || '').toLowerCase().includes(query.toLowerCase())
     );
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, SecurityContext } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonSpinner, IonText, ToastController } from '@ionic/angular/standalone';
@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HelpWidgetComponent } from '../../components/help-widget/help-widget';
 import { ItemCardComponent } from '../../components/item-card/item-card';
+import { DomSanitizer } from '@angular/platform-browser';
 
 /*
  * Tab 2 - Add Item & Featured Items Page
@@ -59,7 +60,8 @@ export class Tab2Page implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private inventoryService: InventoryService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private sanitizer: DomSanitizer
   ) {
     addIcons({ addOutline, checkmarkCircleOutline, starOutline });
     this.isLoading = false;
@@ -106,10 +108,27 @@ export class Tab2Page implements OnInit, OnDestroy {
     }
 
     this.isSubmitting = true;
+    
+    // Validate and parse numeric fields (Issue #7 - Parse validation)
+    const price = parseFloat(this.addItemForm.value.price);
+    const quantity = parseInt(this.addItemForm.value.quantity, 10);
+    
+    if (isNaN(price) || isNaN(quantity) || price < 0 || quantity < 0) {
+      this.showToast('Invalid price or quantity entered', 'danger');
+      this.isSubmitting = false;
+      return;
+    }
+
+    // Sanitize special note to prevent XSS (Issue #3)
+    const sanitizedNote = this.addItemForm.value.specialNote 
+      ? this.sanitizer.sanitize(SecurityContext.HTML, this.addItemForm.value.specialNote) || ''
+      : '';
+
     const newItem: Item = {
       ...this.addItemForm.value,
-      price: parseFloat(this.addItemForm.value.price),
-      quantity: parseInt(this.addItemForm.value.quantity),
+      price: price,
+      quantity: quantity,
+      specialNote: sanitizedNote,
       featuredItem: 0
     };
 

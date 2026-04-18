@@ -24,6 +24,10 @@
             (ionBlur)="onInputBlur()">
           </ion-input>
         </ion-item>
+        <div *ngIf="isFieldInvalid('itemName')" class="error-message">
+          <small *ngIf="addItemForm.get('itemName')?.errors?.['required']">Item name is required</small>
+          <small *ngIf="addItemForm.get('itemName')?.errors?.['minlength']">Item name must be at least 2 characters</small>
+        </div>
 
         <!-- Category -->
         <ion-item>
@@ -32,6 +36,9 @@
             <ion-select-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</ion-select-option>
           </ion-select>
         </ion-item>
+        <div *ngIf="isFieldInvalid('category')" class="error-message">
+          <small *ngIf="addItemForm.get('category')?.errors?.['required']">Category is required</small>
+        </div>
 
         <!-- Quantity -->
         <ion-item>
@@ -44,6 +51,11 @@
             (ionBlur)="onInputBlur()">
           </ion-input>
         </ion-item>
+        <div *ngIf="isFieldInvalid('quantity')" class="error-message">
+          <small *ngIf="addItemForm.get('quantity')?.errors?.['required']">Quantity is required</small>
+          <small *ngIf="addItemForm.get('quantity')?.errors?.['min']">Quantity must be at least 0</small>
+          <small *ngIf="addItemForm.get('quantity')?.errors?.['pattern']">Quantity must be a whole number</small>
+        </div>
 
         <!-- Price -->
         <ion-item>
@@ -56,6 +68,11 @@
             (ionBlur)="onInputBlur()">
           </ion-input>
         </ion-item>
+        <div *ngIf="isFieldInvalid('price')" class="error-message">
+          <small *ngIf="addItemForm.get('price')?.errors?.['required']">Price is required</small>
+          <small *ngIf="addItemForm.get('price')?.errors?.['min']">Price must be at least 0</small>
+          <small *ngIf="addItemForm.get('price')?.errors?.['pattern']">Price format: 10 or 10.50</small>
+        </div>
 
         <!-- Supplier -->
         <ion-item>
@@ -68,6 +85,10 @@
             (ionBlur)="onInputBlur()">
           </ion-input>
         </ion-item>
+        <div *ngIf="isFieldInvalid('supplierName')" class="error-message">
+          <small *ngIf="addItemForm.get('supplierName')?.errors?.['required']">Supplier name is required</small>
+          <small *ngIf="addItemForm.get('supplierName')?.errors?.['minlength']">Supplier name must be at least 2 characters</small>
+        </div>
 
         <!-- Stock Status -->
         <ion-item>

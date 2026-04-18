@@ -87,6 +87,22 @@ ion-item {
   }
 }
 
+/* Error Messages */
+.error-message {
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 600;
+  margin: -12px 0 12px 16px;
+  padding: 0 0 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+
+  small {
+    display: block;
+    margin-bottom: 4px;
+  }
+}
+
 /* Action Buttons */
 .action-buttons {
   display: flex;

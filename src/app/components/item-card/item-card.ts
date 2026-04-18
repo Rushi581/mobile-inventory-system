@@ -61,5 +61,15 @@ export class ItemCardComponent {
   isFeatured(): boolean {
     return this.item?.featuredItem === 1;
   }
+
+  /**
+   * Get total value (quantity * price) with safe null handling (Issue #2)
+   */
+  getTotalValue(item: Item | undefined): number {
+    if (!item) return 0;
+    const qty = item?.quantity ?? 0;
+    const price = item?.price ?? 0;
+    return qty * price;
+  }
 }
 

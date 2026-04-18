@@ -60,6 +60,10 @@
             (ionBlur)="onInputBlur()">
           </ion-input>
         </ion-item>
+        <div *ngIf="isFieldInvalid('quantity')" class="error-message">
+          <small *ngIf="updateForm.get('quantity')?.errors?.['required']">Quantity is required</small>
+          <small *ngIf="updateForm.get('quantity')?.errors?.['min']">Quantity must be at least 0</small>
+        </div>
 
         <!-- Supplier -->
         <ion-item>
@@ -72,6 +76,10 @@
             (ionBlur)="onInputBlur()">
           </ion-input>
         </ion-item>
+        <div *ngIf="isFieldInvalid('supplierName')" class="error-message">
+          <small *ngIf="updateForm.get('supplierName')?.errors?.['required']">Supplier name is required</small>
+          <small *ngIf="updateForm.get('supplierName')?.errors?.['minlength']">Supplier name must be at least 2 characters</small>
+        </div>
 
         <!-- Stock Status -->
         <ion-item>
@@ -132,3 +140,5 @@
     helpMessage="Search for an item by name, then update its quantity, supplier, or stock status. You can also delete items (protected items like Laptop cannot be deleted). Changes are saved to the database immediately."
   ></app-help-widget>
 </ion-content>
+
+
