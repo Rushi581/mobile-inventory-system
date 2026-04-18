@@ -40,22 +40,17 @@
 /* Only apply webkit-appearance to native inputs, NOT to Ionic components */
 input, textarea {
   -webkit-appearance: none !important;
-  font-size: 16px !important; /* iOS වල Zoom වෙන එක නවත්වන්න */
+  font-size: 16px !important;
 }
 
-/* Ionic input styling - let Ionic components handle their own appearance */
+/* Ionic input styling */
 ion-input, ion-textarea {
-  font-size: 16px !important; /* Prevent iOS auto-zoom */
-}
-
-body.keyboard-is-open {
-  /* කීබෝඩ් එක ආවාම පිටුව යටට යන්න දෙනවා */
-  padding-bottom: 50vh !important;
+  font-size: 16px !important;
 }
 
 ion-content {
-  /* කීබෝඩ් එක ආවාම පිටුව scroll කරන්න පුළුවන් වෙන්න */
-  --keyboard-offset: 0px;
+  /* Allow keyboard to show without blocking content */
+  --keyboard-offset: auto !important;
 }
 
 /**
