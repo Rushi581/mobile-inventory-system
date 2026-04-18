@@ -127,10 +127,6 @@ ion-popover,
 /* Smooth transitions for loading states */
 ion-card {
   transition: opacity 0.3s ease, transform 0.2s ease;
-
-  &[style*="opacity: 0.5"] {
-    pointer-events: none;
-  }
 }
 
 /* Loading spinner visibility */
