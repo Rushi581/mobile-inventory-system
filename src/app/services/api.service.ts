@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry, timeout } from 'rxjs/operators';
-import { Item } from '../models/item.model';
+import { catchError, retry, timeout, map } from 'rxjs/operators';
+import { Item, ItemServerFormat } from '../models/item.model';
 
 /*
  * API Service - RESTful Communication Layer
@@ -10,10 +10,13 @@ import { Item } from '../models/item.model';
  * Server: https://prog2005.it.scu.edu.au/ArtGalley
  * Student ID: 25108934
  * 
+ * IMPORTANT: Server uses snake_case field names (item_name, supplier_name, etc.)
+ * TypeScript uses camelCase - conversion handled automatically
+ * 
  * CRUD Operations:
  * - GET /: Retrieve all items
- * - GET /{name}: Retrieve single item
- * - POST /: Create new item
+ * - GET /{name}: Retrieve single item  
+ * - POST /: Create new item (NO RETRY - prevents duplicates!)
  * - PUT /{name}: Update existing item
  * - DELETE /{name}: Delete item
  */
@@ -29,13 +32,49 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   /**
+   * Convert camelCase (TypeScript) to snake_case (Server)
+   * Problem #2 Fix: Ensure field names match server database columns
+   */
+  private toServerFormat(item: Item): ItemServerFormat {
+    return {
+      item_id: item.itemId,
+      item_name: item.itemName,
+      category: item.category,
+      quantity: item.quantity,
+      price: item.price,
+      supplier_name: item.supplierName,
+      stock_status: item.stockStatus,
+      featured_item: item.featuredItem,
+      special_note: item.specialNote
+    };
+  }
+
+  /**
+   * Convert snake_case (Server) to camelCase (TypeScript)
+   */
+  private fromServerFormat(data: any): Item {
+    return {
+      itemId: data.item_id || data.itemId,
+      itemName: data.item_name || data.itemName,
+      category: data.category,
+      quantity: data.quantity,
+      price: data.price,
+      supplierName: data.supplier_name || data.supplierName,
+      stockStatus: data.stock_status || data.stockStatus,
+      featuredItem: data.featured_item !== undefined ? data.featured_item : data.featuredItem,
+      specialNote: data.special_note || data.specialNote
+    };
+  }
+
+  /**
    * GET all items from the database
    * @returns Observable<Item[]> - Array of all inventory items
    */
   getAllItems(): Observable<Item[]> {
-    return this.http.get<Item[]>(this.apiUrl + '/').pipe(
+    return this.http.get<any[]>(this.apiUrl + '/').pipe(
       timeout(this.timeoutMs),
       retry(this.retryAttempts),
+      map((items: any[]) => items.map(item => this.fromServerFormat(item))),
       catchError(this.handleError)
     );
   }
@@ -47,25 +86,29 @@ export class ApiService {
    */
   getItemByName(itemName: string): Observable<Item> {
     const encodedName = encodeURIComponent(itemName);
-    return this.http.get<Item>(`${this.apiUrl}/${encodedName}`).pipe(
+    return this.http.get<any>(`${this.apiUrl}/${encodedName}`).pipe(
       timeout(this.timeoutMs),
       retry(this.retryAttempts),
+      map(item => this.fromServerFormat(item)),
       catchError(this.handleError)
     );
   }
 
   /**
    * POST - Add new item to database
+   * PROBLEM #1 FIX: NO RETRY on POST to prevent duplicate items!
    * @param item - Item object to create (server auto-generates itemId)
    * @returns Observable<Item> - Created item with server-generated ID
-   * Issue #12: Added retry for consistency with other methods
    */
   addItem(item: Item): Observable<Item> {
     // Remove itemId if present - server will auto-generate it
     const { itemId, ...itemData } = item;
-    return this.http.post<Item>(this.apiUrl + '/', itemData).pipe(
+    const serverData = this.toServerFormat({ ...itemData } as Item);
+    
+    return this.http.post<any>(this.apiUrl + '/', serverData).pipe(
       timeout(this.timeoutMs),
-      retry(this.retryAttempts),
+      // ❌ NO RETRY HERE - POST is not idempotent!
+      map(response => this.fromServerFormat(response)),
       catchError(this.handleError)
     );
   }
@@ -80,8 +123,11 @@ export class ApiService {
     const encodedName = encodeURIComponent(itemName);
     // Remove itemId from update payload - cannot modify primary key
     const { itemId, ...updateData } = item;
-    return this.http.put<Item>(`${this.apiUrl}/${encodedName}`, updateData).pipe(
+    const serverData = this.toServerFormat({ ...updateData } as Item);
+    
+    return this.http.put<any>(`${this.apiUrl}/${encodedName}`, serverData).pipe(
       timeout(this.timeoutMs),
+      map(response => this.fromServerFormat(response)),
       catchError(this.handleError)
     );
   }
