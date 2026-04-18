@@ -1,0 +1,7 @@
+{
+  "name": "InventoryApp_Part3",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

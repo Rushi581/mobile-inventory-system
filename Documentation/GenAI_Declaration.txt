@@ -1,0 +1,4 @@
+GenAI Declaration
+
+Document your use of GenAI tools (Copilot, ChatGPT, etc.) in this project.
+Include details about what assistance was used and how it was applied.
