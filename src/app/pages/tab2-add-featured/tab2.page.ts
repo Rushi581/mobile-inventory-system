@@ -62,6 +62,7 @@ export class Tab2Page implements OnInit, OnDestroy {
     private toastController: ToastController
   ) {
     addIcons({ addOutline, checkmarkCircleOutline, starOutline });
+    this.isLoading = false;
   }
 
   ngOnInit(): void {

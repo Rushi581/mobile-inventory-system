@@ -53,6 +53,7 @@ export class Tab1Page implements OnInit, OnDestroy {
 
   constructor(private inventoryService: InventoryService) {
     addIcons({ listOutline, searchOutline, refreshOutline });
+    this.isLoading = false;
   }
 
   ngOnInit(): void {

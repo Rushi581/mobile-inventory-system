@@ -9,8 +9,8 @@ ion-content {
   --padding-bottom: 80px;
 }
 
-/* Loading Overlay */
-.loading-overlay {
+/* Loading Overlay - DISABLED to prevent blocking interactions */
+/*.loading-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -45,7 +45,7 @@ ion-content {
       max-width: 200px;
     }
   }
-}
+}*/
 
 /* Search Card */
 .search-card {

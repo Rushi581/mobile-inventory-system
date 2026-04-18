@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlertController } from '@ionic/angular';
 import { IonFabButton, IonIcon, IonFab } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { helpCircleOutline } from 'ionicons/icons';
 
 /*
  * Help Widget Component
@@ -20,7 +22,9 @@ export class HelpWidgetComponent {
   @Input() helpTitle: string = 'Help';
   @Input() helpMessage: string = 'Need assistance? This feature helps you manage inventory items efficiently.';
 
-  constructor(private alertController: AlertController) {}
+  constructor(private alertController: AlertController) {
+    addIcons({ helpCircleOutline });
+  }
 
   /**
    * Show help alert popup

@@ -28,6 +28,11 @@ export const routes: Routes = [
         data: { title: 'Privacy & Security' }
       },
       {
+        path: 'dashboard',
+        loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
+        data: { title: 'Dashboard' }
+      },
+      {
         path: '',
         redirectTo: 'tab1',
         pathMatch: 'full'
