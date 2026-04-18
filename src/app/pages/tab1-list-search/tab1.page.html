@@ -1,9 +1,70 @@
 <!-- Tab 1: LIST + SEARCH -->
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Items List</ion-title>
+    <ion-title>📦 Inventory</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Stats Strip -->
+  <div class="stats-strip">
+    <div class="stat-card stat-total">
+      <div class="stat-number">{{ stats.total }}</div>
+      <div class="stat-label">Total Items</div>
+    </div>
+    <div class="stat-card stat-in-stock">
+      <div class="stat-number">{{ stats.inStock }}</div>
+      <div class="stat-label">In Stock</div>
+    </div>
+    <div class="stat-card stat-low-stock">
+      <div class="stat-number">{{ stats.lowStock }}</div>
+      <div class="stat-label">Low Stock</div>
+    </div>
+    <div class="stat-card stat-out-of-stock">
+      <div class="stat-number">{{ stats.outOfStock }}</div>
+      <div class="stat-label">Out of Stock</div>
+    </div>
+  </div>
+
+  <!-- Refresh Control -->
+  <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Search Bar -->
+  <div class="search-section">
+    <ion-searchbar
+      placeholder="Search by item name..."
+      [(ngModel)]="searchQuery"
+      (ionChange)="onSearchChange()"
+      animated="true"
+    ></ion-searchbar>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner></ion-spinner>
+    <p>Loading inventory...</p>
+  </div>
+
+  <!-- Items List -->
+  <div class="items-container" *ngIf="!isLoading">
+    <div *ngIf="filteredItems.length > 0; else noItems">
+      <app-item-card *ngFor="let item of filteredItems" [item]="item"></app-item-card>
+    </div>
+
+    <ng-template #noItems>
+      <div class="no-items">
+        <ion-icon name="search-outline" size="large"></ion-icon>
+        <h3>No Items Found</h3>
+        <p>{{ searchQuery ? 'Try a different search term' : 'No inventory items available' }}</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Help Widget -->
+  <app-help-widget
+    helpTitle="Inventory List Help"
+    helpMessage="This page displays all inventory items. Use the search bar to find specific items by name. Pull down to refresh the list. Each item card shows the quantity, price, supplier, and current stock status."
+  ></app-help-widget>
 </ion-content>

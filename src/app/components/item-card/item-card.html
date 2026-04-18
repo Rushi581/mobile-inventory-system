@@ -1,1 +1,45 @@
 <!-- Item Card - Displays individual item information -->
+<ion-card class="item-card">
+  <ion-card-header>
+    <div class="card-header-content">
+      <div class="header-top">
+        <ion-card-title class="item-name">{{ item?.itemName }}</ion-card-title>
+        <ion-badge class="badge-featured" *ngIf="isFeatured()">⭐ Featured</ion-badge>
+      </div>
+      <div class="badges-container">
+        <ion-badge [ngClass]="getCategoryBadgeClass()">{{ item?.category }}</ion-badge>
+        <ion-badge [ngClass]="getStockBadgeClass()">{{ item?.stockStatus }}</ion-badge>
+      </div>
+    </div>
+  </ion-card-header>
+
+  <ion-card-content>
+    <div class="item-details">
+      <div class="detail-row">
+        <span class="detail-label">Quantity:</span>
+        <span class="detail-value">{{ item?.quantity }} units</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Price:</span>
+        <span class="detail-value">${{ item?.price | number:'1.2-2' }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Supplier:</span>
+        <span class="detail-value">{{ item?.supplierName }}</span>
+      </div>
+
+      <div class="detail-row" *ngIf="item?.specialNote">
+        <span class="detail-label">Note:</span>
+        <span class="detail-value">{{ item?.specialNote }}</span>
+      </div>
+
+      <div class="detail-row total-price">
+        <span class="detail-label">Total Value:</span>
+        <span class="detail-value highlight">${{ (item?.quantity * item?.price) | number:'1.2-2' }}</span>
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>
+

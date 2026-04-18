@@ -1,0 +1,68 @@
+/* Help Widget Styles */
+
+:host {
+  .help-fab {
+    z-index: 1000;
+
+    ion-fab-button {
+      width: 56px;
+      height: 56px;
+      --background: #5b5fc7;
+      --background-hover: #3b3fa7;
+      --color: white;
+      box-shadow: 0 4px 12px rgba(91, 95, 199, 0.3);
+      transition: all 300ms ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(91, 95, 199, 0.4);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      ion-icon {
+        font-size: 28px;
+      }
+    }
+  }
+}
+
+/* Alert customization */
+::ng-deep .help-alert {
+  ion-alert {
+    --background: white;
+    --border-radius: 14px;
+
+    .alert-wrapper {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .alert-head {
+      padding: 20px 20px 10px;
+      font-weight: 700;
+      color: #1f2937;
+    }
+
+    .alert-message {
+      padding: 10px 20px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .alert-button-group {
+      padding: 10px 20px 20px;
+    }
+
+    button {
+      --text-color: #5b5fc7;
+      font-weight: 600;
+      text-transform: none;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
