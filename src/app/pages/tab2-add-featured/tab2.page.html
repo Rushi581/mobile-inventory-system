@@ -6,16 +6,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" scroll-y="true">
-  <!-- Loading Spinner -->
-  <div *ngIf="isLoading || isSubmitting" class="loading-overlay">
-    <div class="loading-spinner-container">
-      <ion-spinner></ion-spinner>
-      <p>{{ isLoading ? 'Loading categories...' : 'Adding item to inventory...' }}</p>
-    </div>
-  </div>
-
   <!-- Add Item Form -->
-  <ion-card class="form-card" [style.opacity]="isLoading || isSubmitting ? 0.5 : 1">
+  <ion-card class="form-card">
     <ion-card-header>
       <ion-card-title>Create New Inventory Item</ion-card-title>
     </ion-card-header>

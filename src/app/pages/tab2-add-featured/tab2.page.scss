@@ -9,44 +9,6 @@ ion-content {
   --padding-bottom: 80px;
 }
 
-/* Loading Overlay - DISABLED to prevent blocking interactions */
-/*.loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(255, 255, 255, 0.95);
-  z-index: 9999;
-  backdrop-filter: blur(2px);
-
-  .loading-spinner-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-
-    ion-spinner {
-      --color: #22c55e;
-      width: 48px;
-      height: 48px;
-    }
-
-    p {
-      font-size: 14px;
-      color: #6b7280;
-      font-weight: 500;
-      text-align: center;
-      margin: 0;
-      max-width: 200px;
-    }
-  }
-}*/
-
 /* Form Card */
 .form-card {
   margin: 16px;

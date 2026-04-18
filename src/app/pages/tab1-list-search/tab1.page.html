@@ -45,12 +45,6 @@
     ></ion-searchbar>
   </div>
 
-  <!-- Loading Spinner -->
-  <div *ngIf="isLoading" class="loading-container">
-    <ion-spinner></ion-spinner>
-    <p>Loading inventory...</p>
-  </div>
-
   <!-- Items List -->
   <div class="items-container" *ngIf="!isLoading">
     <div *ngIf="filteredItems.length > 0; else noItems">

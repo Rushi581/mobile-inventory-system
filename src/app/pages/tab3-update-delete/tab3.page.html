@@ -11,16 +11,8 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <!-- Loading Spinner -->
-  <div *ngIf="isSearching || isUpdating || isDeleting" class="loading-overlay">
-    <div class="loading-spinner-container">
-      <ion-spinner></ion-spinner>
-      <p>{{ isSearching ? 'Searching...' : isUpdating ? 'Updating item...' : 'Deleting item...' }}</p>
-    </div>
-  </div>
-
   <!-- Search Section -->
-  <ion-card class="search-card" [style.opacity]="isSearching || isUpdating || isDeleting ? 0.5 : 1">
+  <ion-card class="search-card">
     <ion-card-content>
       <div class="search-container">
         <ion-searchbar
@@ -46,7 +38,7 @@
   </ion-card>
 
   <!-- Item Details Form -->
-  <ion-card *ngIf="foundItem" class="update-card" [style.opacity]="isUpdating || isDeleting ? 0.5 : 1">
+  <ion-card *ngIf="foundItem" class="update-card">
     <ion-card-header>
       <ion-card-title>Editing: {{ foundItem.itemName }}</ion-card-title>
       <div class="item-meta">
