@@ -1,9 +1,89 @@
 <!-- Tab 2: ADD + FEATURED ITEMS -->
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Add Items</ion-title>
+  <ion-toolbar class="toolbar-success">
+    <ion-title>➕ Add New Item</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Add Item Form -->
+  <ion-card class="form-card">
+    <ion-card-header>
+      <ion-card-title>Create New Inventory Item</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="addItemForm" (ngSubmit)="submitAddItem()">
+        <!-- Item Name -->
+        <ion-item>
+          <ion-label position="floating">Item Name *</ion-label>
+          <ion-input formControlName="itemName" type="text" placeholder="Enter item name"></ion-input>
+        </ion-item>
+
+        <!-- Category -->
+        <ion-item>
+          <ion-label>Category *</ion-label>
+          <ion-select formControlName="category" placeholder="Select category">
+            <ion-select-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Quantity -->
+        <ion-item>
+          <ion-label position="floating">Quantity *</ion-label>
+          <ion-input formControlName="quantity" type="number" placeholder="Enter quantity"></ion-input>
+        </ion-item>
+
+        <!-- Price -->
+        <ion-item>
+          <ion-label position="floating">Price ($) *</ion-label>
+          <ion-input formControlName="price" type="number" placeholder="Enter price" step="0.01"></ion-input>
+        </ion-item>
+
+        <!-- Supplier -->
+        <ion-item>
+          <ion-label position="floating">Supplier Name *</ion-label>
+          <ion-input formControlName="supplierName" type="text" placeholder="Enter supplier"></ion-input>
+        </ion-item>
+
+        <!-- Stock Status -->
+        <ion-item>
+          <ion-label>Stock Status *</ion-label>
+          <ion-select formControlName="stockStatus">
+            <ion-select-option *ngFor="let status of stockStatuses" [value]="status">{{ status }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Special Note -->
+        <ion-item>
+          <ion-label position="floating">Special Note (Optional)</ion-label>
+          <ion-input formControlName="specialNote" type="text" placeholder="Enter note"></ion-input>
+        </ion-item>
+
+        <!-- Submit Button -->
+        <div class="button-group">
+          <ion-button
+            type="submit"
+            expand="block"
+            class="button-success"
+            [disabled]="isSubmitting || addItemForm.invalid"
+          >
+            <ion-icon name="add-outline" slot="start"></ion-icon>
+            {{ isSubmitting ? 'Adding...' : 'Add to Inventory' }}
+          </ion-button>
+        </div>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Featured Items Section -->
+  <div class="featured-section" *ngIf="featuredItems.length > 0">
+    <h2 class="featured-title">⭐ Featured Items</h2>
+    <app-item-card *ngFor="let item of featuredItems" [item]="item"></app-item-card>
+  </div>
+
+  <!-- Help Widget -->
+  <app-help-widget
+    helpTitle="Add Item Help"
+    helpMessage="Fill in all required fields marked with * to add a new inventory item. The system will assign a unique Item ID automatically. Featured items are marked with a star and displayed in this section."
+  ></app-help-widget>
 </ion-content>
