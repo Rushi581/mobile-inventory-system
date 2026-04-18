@@ -169,6 +169,13 @@ export class Tab2Page implements OnInit, OnDestroy {
   }
 
   /**
+   * TrackBy function for *ngFor (Issue #19: Performance optimization)
+   */
+  trackByItemId(index: number, item: Item): number {
+    return item.itemId ?? index;
+  }
+
+  /**
    * Handle input focus event for keyboard appearance
    */
   onInputFocus(): void {

@@ -48,7 +48,7 @@
   <!-- Items List -->
   <div class="items-container" *ngIf="!isLoading">
     <div *ngIf="filteredItems.length > 0; else noItems">
-      <app-item-card *ngFor="let item of filteredItems" [item]="item"></app-item-card>
+      <app-item-card *ngFor="let item of filteredItems; trackBy: trackByItemId" [item]="item"></app-item-card>
     </div>
 
     <ng-template #noItems>

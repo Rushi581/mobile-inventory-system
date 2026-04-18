@@ -129,7 +129,7 @@
   <!-- Featured Items Section -->
   <div class="featured-section" *ngIf="featuredItems.length > 0">
     <h2 class="featured-title">⭐ Featured Items</h2>
-    <app-item-card *ngFor="let item of featuredItems" [item]="item"></app-item-card>
+    <app-item-card *ngFor="let item of featuredItems; trackBy: trackByItemId" [item]="item"></app-item-card>
   </div>
 
   <!-- Help Widget -->

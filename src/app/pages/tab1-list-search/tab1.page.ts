@@ -7,7 +7,7 @@ import { addIcons } from 'ionicons';
 import { InventoryService } from '../../services/inventory.service';
 import { Item } from '../../models/item.model';
 import { Subject } from 'rxjs';
-import { takeUntil, debounceTime } from 'rxjs/operators';
+import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { HelpWidgetComponent } from '../../components/help-widget/help-widget';
 import { ItemCardComponent } from '../../components/item-card/item-card';
 
@@ -50,6 +50,7 @@ export class Tab1Page implements OnInit, OnDestroy {
   isLoading: boolean = false;
   stats = { total: 0, inStock: 0, lowStock: 0, outOfStock: 0 };
   private destroy$ = new Subject<void>();
+  private searchSubject$ = new Subject<string>(); // Issue #17: Debounce search
 
   constructor(private inventoryService: InventoryService) {
     addIcons({ listOutline, searchOutline, refreshOutline });
@@ -58,6 +59,22 @@ export class Tab1Page implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadItems();
+    this.setupSearchDebounce();
+  }
+
+  /**
+   * Setup search debounce with 300ms delay (Issue #17)
+   */
+  private setupSearchDebounce(): void {
+    this.searchSubject$
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((query: string) => {
+        this.performSearch(query);
+      });
   }
 
   /**
@@ -83,10 +100,17 @@ export class Tab1Page implements OnInit, OnDestroy {
    * Search items by name (debounced)
    */
   onSearchChange(): void {
-    if (!this.searchQuery.trim()) {
+    this.searchSubject$.next(this.searchQuery);
+  }
+
+  /**
+   * Perform actual search after debounce
+   */
+  private performSearch(query: string): void {
+    if (!query.trim()) {
       this.filteredItems = this.items;
     } else {
-      this.filteredItems = this.inventoryService.searchItems(this.searchQuery);
+      this.filteredItems = this.inventoryService.searchItems(query);
     }
   }
 
@@ -124,6 +148,13 @@ export class Tab1Page implements OnInit, OnDestroy {
   }
 
   /**
+   * TrackBy function for *ngFor (Issue #19: Performance optimization)
+   */
+  trackByItemId(index: number, item: Item): number {
+    return item.itemId ?? index;
+  }
+
+  /**
    * Handle input focus event for keyboard appearance
    */
   onInputFocus(): void {
@@ -144,6 +175,7 @@ export class Tab1Page implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.searchSubject$.complete();
     this.destroy$.next();
     this.destroy$.complete();
   }
