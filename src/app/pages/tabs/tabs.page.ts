@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
+import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet } from '@ionic/angular/standalone';
+import { RouterModule } from '@angular/router';
 import { gridOutline, addOutline, settingsOutline, shieldOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
@@ -12,7 +13,7 @@ import { addIcons } from 'ionicons';
 @Component({
   selector: 'app-tabs',
   standalone: true,
-  imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel],
+  imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet, RouterModule],
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss']
 })
