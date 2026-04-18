@@ -1,1 +1,138 @@
 // Tab 2 styles - ADD + FEATURED ITEMS
+
+:host {
+  --background: #f8f9fa;
+}
+
+ion-content {
+  --background: #f8f9fa;
+  --padding-bottom: 80px;
+}
+
+/* Form Card */
+.form-card {
+  margin: 16px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  ion-card-header {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: white;
+    padding: 16px;
+    border-radius: 14px 14px 0 0;
+
+    ion-card-title {
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+    }
+  }
+
+  ion-card-content {
+    padding: 20px;
+  }
+}
+
+/* Form Items */
+ion-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #e5e7eb;
+  background-color: transparent;
+
+  ion-label {
+    color: #6b7280;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  ion-input,
+  ion-select {
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    color: #1f2937;
+    font-weight: 500;
+  }
+
+  &.item-has-focus {
+    border-bottom-color: #22c55e;
+
+    ion-label {
+      color: #22c55e;
+    }
+  }
+}
+
+/* Error Messages */
+.error-message {
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 600;
+  margin: -12px 0 12px 0;
+  padding: 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Button Group */
+.button-group {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+
+  ion-button {
+    --border-radius: 12px;
+    font-weight: 700;
+    text-transform: none;
+    height: 48px;
+    font-size: 16px;
+
+    &.button-success {
+      --background: #22c55e;
+      --background-hover: #16a34a;
+      color: white;
+
+      &:disabled {
+        --background: #d1fae5;
+        opacity: 0.6;
+      }
+    }
+  }
+}
+
+/* Featured Section */
+.featured-section {
+  padding: 16px;
+  margin-top: 24px;
+  background-color: #fffbeb;
+  border-left: 4px solid #f59e0b;
+  border-radius: 0 12px 12px 0;
+  margin: 24px 16px 0;
+
+  .featured-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #78350f;
+    margin: 0 0 16px 0;
+  }
+
+  app-item-card {
+    margin-bottom: 12px;
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .form-card {
+    margin: 12px;
+
+    ion-card-content {
+      padding: 16px;
+    }
+  }
+
+  .featured-section {
+    margin: 16px;
+  }
+}

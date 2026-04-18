@@ -1,9 +1,61 @@
 <!-- Tab 4: PRIVACY & SECURITY -->
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Privacy & Settings</ion-title>
+  <ion-toolbar class="toolbar-primary">
+    <ion-title>🔒 Privacy & Security</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <div class="privacy-intro">
+    <h2>Security & Privacy Commitment</h2>
+    <p>
+      This Inventory Management System prioritizes your data security and privacy. Learn about the measures we take to protect your information.
+    </p>
+  </div>
+
+  <!-- Security Information Cards -->
+  <div class="security-cards">
+    <ion-card
+      *ngFor="let info of securityInfos"
+      class="security-card"
+      [style.--border-color]="info.borderColor"
+    >
+      <ion-card-header class="card-header">
+        <ion-icon
+          [name]="info.icon"
+          class="header-icon"
+          [style.color]="info.color"
+        ></ion-icon>
+        <ion-card-title>{{ info.title }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="card-description">
+        <p>{{ info.description }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Additional Info -->
+  <ion-card class="info-card">
+    <ion-card-header>
+      <ion-card-title>📋 Legal Information</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        <strong>Terms of Service:</strong> By using this application, you agree to our terms of service and privacy policy.
+      </p>
+      <p>
+        <strong>Data Retention:</strong> Your data is retained for as long as you use the service. You can request data deletion anytime.
+      </p>
+      <p>
+        <strong>Contact:</strong> For privacy concerns, contact our support team at support@inventorysystem.app
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Help Widget -->
+  <app-help-widget
+    helpTitle="Privacy & Security Help"
+    helpMessage="This page explains how we protect your inventory data. Our system uses HTTPS encryption, validates all inputs, implements access control, and follows OWASP security standards. Your data is never shared with third parties."
+  ></app-help-widget>
 </ion-content>

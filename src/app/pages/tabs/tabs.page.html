@@ -1,0 +1,33 @@
+<ion-tabs>
+  <!-- Tab 1 - List & Search -->
+  <ion-tab [routes]="[{ path: 'tab1', loadComponent: () => import('../tab1-list-search/tab1.page').then(m => m.Tab1Page) }]">
+    <ng-template ionTabButton tab="tab1">
+      <ion-icon name="grid-outline"></ion-icon>
+      <ion-label>List</ion-label>
+    </ng-template>
+  </ion-tab>
+
+  <!-- Tab 2 - Add & Featured -->
+  <ion-tab [routes]="[{ path: 'tab2', loadComponent: () => import('../tab2-add-featured/tab2.page').then(m => m.Tab2Page) }]">
+    <ng-template ionTabButton tab="tab2">
+      <ion-icon name="add-outline"></ion-icon>
+      <ion-label>Add</ion-label>
+    </ng-template>
+  </ion-tab>
+
+  <!-- Tab 3 - Update & Delete -->
+  <ion-tab [routes]="[{ path: 'tab3', loadComponent: () => import('../tab3-update-delete/tab3.page').then(m => m.Tab3Page) }]">
+    <ng-template ionTabButton tab="tab3">
+      <ion-icon name="settings-outline"></ion-icon>
+      <ion-label>Manage</ion-label>
+    </ng-template>
+  </ion-tab>
+
+  <!-- Tab 4 - Privacy & Security -->
+  <ion-tab [routes]="[{ path: 'tab4', loadComponent: () => import('../tab4-privacy/tab4.page').then(m => m.Tab4Page) }]">
+    <ng-template ionTabButton tab="tab4">
+      <ion-icon name="shield-outline"></ion-icon>
+      <ion-label>Security</ion-label>
+    </ng-template>
+  </ion-tab>
+</ion-tabs>

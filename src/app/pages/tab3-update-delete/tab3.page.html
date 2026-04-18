@@ -1,9 +1,107 @@
 <!-- Tab 3: UPDATE + DELETE -->
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Manage Items</ion-title>
+  <ion-toolbar class="toolbar-danger">
+    <ion-title>📝 Manage Items</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Search Section -->
+  <ion-card class="search-card">
+    <ion-card-content>
+      <div class="search-container">
+        <ion-searchbar
+          placeholder="Search item by name..."
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="searchItem()"
+          animated="true"
+        ></ion-searchbar>
+        <ion-button
+          (click)="searchItem()"
+          class="button-primary"
+          [disabled]="isSearching"
+        >
+          <ion-icon name="search-outline"></ion-icon>
+          {{ isSearching ? 'Searching...' : 'Find' }}
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Item Details Form -->
+  <ion-card *ngIf="foundItem" class="update-card">
+    <ion-card-header>
+      <ion-card-title>Editing: {{ foundItem.itemName }}</ion-card-title>
+      <div class="item-meta">
+        <span class="meta-badge">{{ foundItem.category }}</span>
+        <span class="meta-badge">Price: ${{ foundItem.price }}</span>
+      </div>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form [formGroup]="updateForm">
+        <!-- Quantity -->
+        <ion-item>
+          <ion-label position="floating">Quantity</ion-label>
+          <ion-input formControlName="quantity" type="number"></ion-input>
+        </ion-item>
+
+        <!-- Supplier -->
+        <ion-item>
+          <ion-label position="floating">Supplier Name</ion-label>
+          <ion-input formControlName="supplierName" type="text"></ion-input>
+        </ion-item>
+
+        <!-- Stock Status -->
+        <ion-item>
+          <ion-label>Stock Status</ion-label>
+          <ion-select formControlName="stockStatus">
+            <ion-select-option *ngFor="let status of stockStatuses" [value]="status">{{ status }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Special Note -->
+        <ion-item>
+          <ion-label position="floating">Special Note</ion-label>
+          <ion-input formControlName="specialNote" type="text"></ion-input>
+        </ion-item>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <ion-button
+            (click)="updateItem()"
+            expand="block"
+            class="button-primary"
+            [disabled]="isUpdating"
+          >
+            <ion-icon name="pencil-outline" slot="start"></ion-icon>
+            {{ isUpdating ? 'Updating...' : 'Update Item' }}
+          </ion-button>
+
+          <ion-button
+            (click)="deleteItem()"
+            expand="block"
+            fill="outline"
+            class="button-danger"
+            [disabled]="isDeleting"
+          >
+            <ion-icon name="trash-outline" slot="start"></ion-icon>
+            {{ isDeleting ? 'Deleting...' : 'Delete Item' }}
+          </ion-button>
+        </div>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- No Item Found Message -->
+  <div *ngIf="!foundItem && searchQuery" class="no-result">
+    <ion-icon name="search-outline" size="large"></ion-icon>
+    <p>Item not found. Try another name.</p>
+  </div>
+
+  <!-- Help Widget -->
+  <app-help-widget
+    helpTitle="Update & Delete Help"
+    helpMessage="Search for an item by name, then update its quantity, supplier, or stock status. You can also delete items (protected items like Laptop cannot be deleted). Changes are saved to the database immediately."
+  ></app-help-widget>
 </ion-content>

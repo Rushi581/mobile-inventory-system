@@ -1,0 +1,93 @@
+/* Tabs Page Styles */
+
+:host {
+  --background: #ffffff;
+}
+
+ion-tabs {
+  --background: #ffffff;
+}
+
+/* Tab Bar Styling */
+ion-tab-bar {
+  --background: #ffffff;
+  --border-color: #e5e7eb;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
+  --color: #9ca3af;
+  --color-selected: #5b5fc7;
+  height: 70px;
+  padding: 8px 0;
+}
+
+/* Tab Button Styling */
+ion-tab-button {
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  gap: 4px;
+  font-weight: 600;
+  font-size: 12px;
+
+  &.tab-selected {
+    color: #5b5fc7;
+
+    ion-icon {
+      font-size: 24px;
+    }
+
+    ion-label {
+      font-weight: 700;
+    }
+  }
+
+  ion-icon {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+
+  ion-label {
+    font-size: 11px;
+  }
+}
+
+/* Tab Content */
+::ng-deep ion-tab {
+  display: flex !important;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  ion-tab-bar {
+    height: 60px;
+    padding: 4px 0;
+  }
+
+  ion-tab-button {
+    ion-icon {
+      font-size: 20px;
+    }
+
+    ion-label {
+      font-size: 10px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  ion-tab-bar {
+    height: 80px;
+    padding: 12px 0;
+  }
+
+  ion-tab-button {
+    ion-icon {
+      font-size: 26px;
+    }
+
+    ion-label {
+      font-size: 13px;
+    }
+  }
+}

@@ -1,1 +1,149 @@
 // Tab 3 styles - UPDATE + DELETE
+
+:host {
+  --background: #f8f9fa;
+}
+
+ion-content {
+  --background: #f8f9fa;
+  --padding-bottom: 80px;
+}
+
+/* Search Card */
+.search-card {
+  margin: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  .search-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    ion-searchbar {
+      flex: 1;
+      --background: #f0f4ff;
+      --border-radius: 10px;
+      padding: 0;
+      margin: 0;
+    }
+
+    ion-button {
+      --padding-start: 12px;
+      --padding-end: 12px;
+    }
+  }
+}
+
+/* Update Card */
+.update-card {
+  margin: 16px;
+  border-radius: 12px;
+  border-left: 4px solid #ef4444;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
+
+  ion-card-header {
+    padding: 16px;
+    background-color: #fef2f2;
+    border-bottom: 1px solid #fee2e2;
+
+    ion-card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+
+    .item-meta {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+
+      .meta-badge {
+        font-size: 12px;
+        background-color: #fecaca;
+        color: #7f1d1d;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  ion-card-content {
+    padding: 16px;
+  }
+}
+
+/* Form Items */
+ion-item {
+  margin-bottom: 16px;
+
+  ion-label {
+    color: #6b7280;
+    font-weight: 600;
+  }
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+
+  ion-button {
+    font-weight: 700;
+    text-transform: none;
+    height: 44px;
+
+    &.button-primary {
+      --background: #5b5fc7;
+      --background-hover: #3b3fa7;
+    }
+
+    &.button-danger {
+      --border-color: #ef4444;
+      --color: #ef4444;
+      border: 2px solid #ef4444;
+
+      &:hover {
+        background-color: rgba(239, 68, 68, 0.1);
+      }
+    }
+  }
+}
+
+/* No Result */
+.no-result {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  text-align: center;
+  color: #6b7280;
+
+  ion-icon {
+    font-size: 48px;
+    color: #d1d5db;
+    margin-bottom: 16px;
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .search-container {
+    flex-direction: column;
+
+    ion-button {
+      width: 100%;
+    }
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+}
