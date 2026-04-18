@@ -36,104 +36,26 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
 
-/**
- * Mobile Keyboard Fix
- * Ensures keyboard appears and functions properly on mobile browsers
- */
-
-/* Fix for input fields not triggering keyboard on mobile */
-ion-input,
-ion-input input,
-ion-textarea,
-ion-textarea textarea,
-ion-searchbar,
-input[type="text"],
-input[type="number"],
-input[type="email"],
-input[type="password"],
-input[type="tel"],
-textarea {
-  font-size: 16px !important;
-  -webkit-user-select: text !important;
-  user-select: text !important;
-  -webkit-touch-callout: default !important;
-  cursor: text !important;
-}
-
-/* Ensure inputs are properly recognized */
-ion-input input {
-  appearance: none !important;
+/* Keyboard Fixes for Mobile */
+/* Only apply webkit-appearance to native inputs, NOT to Ionic components */
+input, textarea {
   -webkit-appearance: none !important;
-  -moz-appearance: none !important;
+  font-size: 16px !important; /* iOS වල Zoom වෙන එක නවත්වන්න */
 }
 
-/* Prevent iOS zoom on input focus */
-@media (max-width: 768px) {
-  input,
-  textarea,
-  select,
-  button {
-    font-size: 16px !important;
-  }
-  
-  ion-input input,
-  ion-textarea textarea {
-    font-size: 16px !important;
-  }
+/* Ionic input styling - let Ionic components handle their own appearance */
+ion-input, ion-textarea {
+  font-size: 16px !important; /* Prevent iOS auto-zoom */
 }
 
-/* Fix for ion-searchbar on mobile */
-ion-searchbar {
-  --background: transparent !important;
-  padding: 8px 0 !important;
-}
-
-ion-searchbar input {
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  font-size: 16px !important;
-}
-
-/* Ensure keyboard appears with proper scrolling */
 body.keyboard-is-open {
-  overflow: hidden !important;
+  /* කීබෝඩ් එක ආවාම පිටුව යටට යන්න දෙනවා */
+  padding-bottom: 50vh !important;
 }
 
-/* Fix textarea keyboard handling */
-ion-textarea textarea {
-  resize: none !important;
-  overflow-y: auto !important;
-}
-
-/* Improve touch interaction */
-ion-item {
-  --padding-start: 0 !important;
-  --padding-end: 0 !important;
-}
-
-ion-item input,
-ion-item textarea {
-  pointer-events: auto !important;
-  touch-action: manipulation !important;
-}
-
-/* Fix for focus states */
-ion-input:focus,
-ion-input.ion-focused,
-ion-textarea:focus,
-ion-textarea.ion-focused,
-ion-searchbar:focus-within {
-  position: relative !important;
-  z-index: 9999 !important;
-}
-
-/* Ensure scrolling behavior on keyboard open */
 ion-content {
-  --scroll-padding-bottom: 0px !important;
-}
-
-ion-content.keyboard-open {
-  --scroll-padding-bottom: 200px !important;
+  /* කීබෝඩ් එක ආවාම පිටුව scroll කරන්න පුළුවන් වෙන්න */
+  --keyboard-offset: 0px;
 }
 
 /**

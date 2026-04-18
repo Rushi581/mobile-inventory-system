@@ -22,6 +22,11 @@ export const TABS_ROUTES: Routes = [
         data: { title: 'Manage Items' }
       },
       {
+        path: 'dashboard',
+        loadComponent: () => import('../dashboard/dashboard.component').then(m => m.DashboardComponent),
+        data: { title: 'Dashboard' }
+      },
+      {
         path: 'tab4',
         loadComponent: () => import('../tab4-privacy/tab4.page').then(m => m.Tab4Page),
         data: { title: 'Privacy & Security' }

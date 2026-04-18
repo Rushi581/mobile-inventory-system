@@ -1,0 +1,86 @@
+<!-- Dashboard Page -->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>📊 Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Network Status Warning -->
+  <div *ngIf="!isOnline" style="background-color: #fecaca; padding: 12px; margin: 8px; border-radius: 8px; color: #7f1d1d;">
+    ⚠️ ඉන්ටර්නෙට් සබැඳුම නැත - කිසිඳු දත්ත Update වෙන්නේ නැත
+  </div>
+
+  <!-- Loading State with Skeleton -->
+  <div *ngIf="isLoading" class="skeleton-container">
+    <ion-card *ngFor="let i of [1,2,3,4]">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-skeleton-text animated style="width: 60%; height: 24px; margin-bottom: 8px;"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Dashboard Stats -->
+  <div *ngIf="!isLoading" class="dashboard-grid">
+    <!-- Total Items Card -->
+    <ion-card class="stat-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="cube-outline"></ion-icon> මුළු භාණ්ඩ ගණන
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="stat-value">{{ stats.totalItems }}</div>
+        <div class="stat-label">Items</div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Low Stock Alert Card -->
+    <ion-card class="stat-card alert-card" *ngIf="stats.lowStockCount > 0 || stats.outOfStockCount > 0">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="warning-outline"></ion-icon> අවදානම් තොග
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="stat-value" style="color: #ef4444;">{{ stats.lowStockCount + stats.outOfStockCount }}</div>
+        <div class="stat-label">Low/Out of Stock</div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Total Value Card -->
+    <ion-card class="stat-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="trending-up-outline"></ion-icon> මුළු වටිනාකම
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="stat-value">${{ stats.totalValue.toFixed(2) }}</div>
+        <div class="stat-label">Inventory Value</div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Category Breakdown -->
+  <div *ngIf="!isLoading" class="category-section">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>කාණ්ඩ අනුව විශ්ලේෂණය</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="category-list">
+          <div *ngFor="let cat of stats.categoryBreakdown | keyvalue" class="category-item">
+            <span class="category-name">{{ cat.key }}</span>
+            <ion-badge color="primary">{{ cat.value }}</ion-badge>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

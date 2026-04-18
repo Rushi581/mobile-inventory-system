@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet } from '@ionic/angular/standalone';
 import { RouterModule } from '@angular/router';
-import { gridOutline, addOutline, settingsOutline, shieldOutline } from 'ionicons/icons';
+import { gridOutline, addOutline, settingsOutline, shieldOutline, statsChartOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
 /*
  * Tabs Navigation Page
- * Main container for all 4 tabs
+ * Main container for all 5 tabs
  * Student ID: 25108934
  */
 
@@ -19,6 +19,6 @@ import { addIcons } from 'ionicons';
 })
 export class TabsPage {
   constructor() {
-    addIcons({ gridOutline, addOutline, settingsOutline, shieldOutline });
+    addIcons({ gridOutline, addOutline, settingsOutline, shieldOutline, statsChartOutline });
   }
 }

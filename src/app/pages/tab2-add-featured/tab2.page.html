@@ -23,8 +23,14 @@
       <form [formGroup]="addItemForm" (ngSubmit)="submitAddItem()">
         <!-- Item Name -->
         <ion-item>
-          <ion-label position="floating">Item Name *</ion-label>
-          <ion-input formControlName="itemName" type="text" placeholder="Enter item name" autofocus (ionFocus)="onInputFocus()" (ionBlur)="onInputBlur()" data-testid="itemNameInput" inputmode="text"></ion-input>
+          <ion-input 
+            type="text" 
+            inputmode="text" 
+            placeholder="Enter item name..."
+            formControlName="itemName"
+            (ionFocus)="onInputFocus()"
+            (ionBlur)="onInputBlur()">
+          </ion-input>
         </ion-item>
 
         <!-- Category -->
@@ -37,20 +43,38 @@
 
         <!-- Quantity -->
         <ion-item>
-          <ion-label position="floating">Quantity *</ion-label>
-          <ion-input formControlName="quantity" type="number" placeholder="Enter quantity" (ionFocus)="onInputFocus()" (ionBlur)="onInputBlur()" data-testid="quantityInput" inputmode="numeric"></ion-input>
+          <ion-input 
+            type="number" 
+            inputmode="numeric" 
+            placeholder="Enter quantity..."
+            formControlName="quantity"
+            (ionFocus)="onInputFocus()"
+            (ionBlur)="onInputBlur()">
+          </ion-input>
         </ion-item>
 
         <!-- Price -->
         <ion-item>
-          <ion-label position="floating">Price ($) *</ion-label>
-          <ion-input formControlName="price" type="number" placeholder="Enter price" step="0.01" (ionFocus)="onInputFocus()" (ionBlur)="onInputBlur()" data-testid="priceInput" inputmode="decimal"></ion-input>
+          <ion-input 
+            type="number" 
+            inputmode="decimal" 
+            placeholder="Enter price..."
+            formControlName="price"
+            (ionFocus)="onInputFocus()"
+            (ionBlur)="onInputBlur()">
+          </ion-input>
         </ion-item>
 
         <!-- Supplier -->
         <ion-item>
-          <ion-label position="floating">Supplier Name *</ion-label>
-          <ion-input formControlName="supplierName" type="text" placeholder="Enter supplier" (ionFocus)="onInputFocus()" (ionBlur)="onInputBlur()" data-testid="supplierInput" inputmode="text"></ion-input>
+          <ion-input 
+            type="text" 
+            inputmode="text" 
+            placeholder="Enter supplier..."
+            formControlName="supplierName"
+            (ionFocus)="onInputFocus()"
+            (ionBlur)="onInputBlur()">
+          </ion-input>
         </ion-item>
 
         <!-- Stock Status -->
@@ -63,8 +87,14 @@
 
         <!-- Special Note -->
         <ion-item>
-          <ion-label position="floating">Special Note (Optional)</ion-label>
-          <ion-input formControlName="specialNote" type="text" placeholder="Enter note" (ionFocus)="onInputFocus()" (ionBlur)="onInputBlur()" data-testid="noteInput" inputmode="text"></ion-input>
+          <ion-input 
+            type="text" 
+            inputmode="text" 
+            placeholder="Enter note..."
+            formControlName="specialNote"
+            (ionFocus)="onInputFocus()"
+            (ionBlur)="onInputBlur()">
+          </ion-input>
         </ion-item>
 
         <!-- Submit Button -->

@@ -59,14 +59,26 @@
       <form [formGroup]="updateForm">
         <!-- Quantity -->
         <ion-item>
-          <ion-label position="floating">Quantity</ion-label>
-          <ion-input formControlName="quantity" type="number" (ionFocus)="onInputFocus()" (ionBlur)="onInputBlur()" data-testid="updateQuantityInput" inputmode="numeric"></ion-input>
+          <ion-input 
+            type="number" 
+            inputmode="numeric" 
+            placeholder="Enter quantity..."
+            formControlName="quantity"
+            (ionFocus)="onInputFocus()"
+            (ionBlur)="onInputBlur()">
+          </ion-input>
         </ion-item>
 
         <!-- Supplier -->
         <ion-item>
-          <ion-label position="floating">Supplier Name</ion-label>
-          <ion-input formControlName="supplierName" type="text" (ionFocus)="onInputFocus()" (ionBlur)="onInputBlur()" data-testid="updateSupplierInput" inputmode="text"></ion-input>
+          <ion-input 
+            type="text" 
+            inputmode="text" 
+            placeholder="Enter supplier..."
+            formControlName="supplierName"
+            (ionFocus)="onInputFocus()"
+            (ionBlur)="onInputBlur()">
+          </ion-input>
         </ion-item>
 
         <!-- Stock Status -->
@@ -79,8 +91,14 @@
 
         <!-- Special Note -->
         <ion-item>
-          <ion-label position="floating">Special Note</ion-label>
-          <ion-input formControlName="specialNote" type="text" (ionFocus)="onInputFocus()" (ionBlur)="onInputBlur()" data-testid="updateNoteInput" inputmode="text"></ion-input>
+          <ion-input 
+            type="text" 
+            inputmode="text" 
+            placeholder="Enter note..."
+            formControlName="specialNote"
+            (ionFocus)="onInputFocus()"
+            (ionBlur)="onInputBlur()">
+          </ion-input>
         </ion-item>
 
         <!-- Action Buttons -->
