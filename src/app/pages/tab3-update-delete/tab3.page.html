@@ -5,16 +5,33 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" scroll-y="true">
+  <!-- Pull-to-Refresh -->
+  <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isSearching || isUpdating || isDeleting" class="loading-overlay">
+    <div class="loading-spinner-container">
+      <ion-spinner></ion-spinner>
+      <p>{{ isSearching ? 'Searching...' : isUpdating ? 'Updating item...' : 'Deleting item...' }}</p>
+    </div>
+  </div>
+
   <!-- Search Section -->
-  <ion-card class="search-card">
+  <ion-card class="search-card" [style.opacity]="isSearching || isUpdating || isDeleting ? 0.5 : 1">
     <ion-card-content>
       <div class="search-container">
         <ion-searchbar
           placeholder="Search item by name..."
           [(ngModel)]="searchQuery"
           (keyup.enter)="searchItem()"
+          (ionFocus)="onInputFocus()"
+          (ionBlur)="onInputBlur()"
           animated="true"
+          inputmode="text"
+          data-testid="searchInput"
         ></ion-searchbar>
         <ion-button
           (click)="searchItem()"
@@ -29,7 +46,7 @@
   </ion-card>
 
   <!-- Item Details Form -->
-  <ion-card *ngIf="foundItem" class="update-card">
+  <ion-card *ngIf="foundItem" class="update-card" [style.opacity]="isUpdating || isDeleting ? 0.5 : 1">
     <ion-card-header>
       <ion-card-title>Editing: {{ foundItem.itemName }}</ion-card-title>
       <div class="item-meta">
@@ -43,13 +60,13 @@
         <!-- Quantity -->
         <ion-item>
           <ion-label position="floating">Quantity</ion-label>
-          <ion-input formControlName="quantity" type="number"></ion-input>
+          <ion-input formControlName="quantity" type="number" (ionFocus)="onInputFocus()" (ionBlur)="onInputBlur()" data-testid="updateQuantityInput" inputmode="numeric"></ion-input>
         </ion-item>
 
         <!-- Supplier -->
         <ion-item>
           <ion-label position="floating">Supplier Name</ion-label>
-          <ion-input formControlName="supplierName" type="text"></ion-input>
+          <ion-input formControlName="supplierName" type="text" (ionFocus)="onInputFocus()" (ionBlur)="onInputBlur()" data-testid="updateSupplierInput" inputmode="text"></ion-input>
         </ion-item>
 
         <!-- Stock Status -->
@@ -63,7 +80,7 @@
         <!-- Special Note -->
         <ion-item>
           <ion-label position="floating">Special Note</ion-label>
-          <ion-input formControlName="specialNote" type="text"></ion-input>
+          <ion-input formControlName="specialNote" type="text" (ionFocus)="onInputFocus()" (ionBlur)="onInputBlur()" data-testid="updateNoteInput" inputmode="text"></ion-input>
         </ion-item>
 
         <!-- Action Buttons -->

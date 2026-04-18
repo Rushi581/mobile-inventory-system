@@ -37,7 +37,11 @@
       placeholder="Search by item name..."
       [(ngModel)]="searchQuery"
       (ionChange)="onSearchChange()"
+      (ionFocus)="onInputFocus()"
+      (ionBlur)="onInputBlur()"
       animated="true"
+      inputmode="text"
+      data-testid="tab1SearchInput"
     ></ion-searchbar>
   </div>
 

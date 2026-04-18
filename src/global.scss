@@ -35,3 +35,232 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+/**
+ * Mobile Keyboard Fix
+ * Ensures keyboard appears and functions properly on mobile browsers
+ */
+
+/* Fix for input fields not triggering keyboard on mobile */
+ion-input,
+ion-input input,
+ion-textarea,
+ion-textarea textarea,
+ion-searchbar,
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+textarea {
+  font-size: 16px !important;
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-touch-callout: default !important;
+  cursor: text !important;
+}
+
+/* Ensure inputs are properly recognized */
+ion-input input {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+}
+
+/* Prevent iOS zoom on input focus */
+@media (max-width: 768px) {
+  input,
+  textarea,
+  select,
+  button {
+    font-size: 16px !important;
+  }
+  
+  ion-input input,
+  ion-textarea textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Fix for ion-searchbar on mobile */
+ion-searchbar {
+  --background: transparent !important;
+  padding: 8px 0 !important;
+}
+
+ion-searchbar input {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  font-size: 16px !important;
+}
+
+/* Ensure keyboard appears with proper scrolling */
+body.keyboard-is-open {
+  overflow: hidden !important;
+}
+
+/* Fix textarea keyboard handling */
+ion-textarea textarea {
+  resize: none !important;
+  overflow-y: auto !important;
+}
+
+/* Improve touch interaction */
+ion-item {
+  --padding-start: 0 !important;
+  --padding-end: 0 !important;
+}
+
+ion-item input,
+ion-item textarea {
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+}
+
+/* Fix for focus states */
+ion-input:focus,
+ion-input.ion-focused,
+ion-textarea:focus,
+ion-textarea.ion-focused,
+ion-searchbar:focus-within {
+  position: relative !important;
+  z-index: 9999 !important;
+}
+
+/* Ensure scrolling behavior on keyboard open */
+ion-content {
+  --scroll-padding-bottom: 0px !important;
+}
+
+ion-content.keyboard-open {
+  --scroll-padding-bottom: 200px !important;
+}
+
+/**
+ * Safe Area & Notch Handling
+ * Ensures content doesn't overlap with notches and safe areas on modern devices
+ */
+
+/* iOS Safe Area Support */
+ion-header {
+  padding-top: max(0px, env(safe-area-inset-top)) !important;
+  padding-left: max(0px, env(safe-area-inset-left)) !important;
+  padding-right: max(0px, env(safe-area-inset-right)) !important;
+}
+
+ion-content {
+  --padding-top: max(var(--padding-top, 0px), env(safe-area-inset-top)) !important;
+  --padding-left: max(var(--padding-left, 0px), env(safe-area-inset-left)) !important;
+  --padding-right: max(var(--padding-right, 0px), env(safe-area-inset-right)) !important;
+  --padding-bottom: max(var(--padding-bottom, 0px), env(safe-area-inset-bottom)) !important;
+}
+
+ion-footer {
+  padding-bottom: max(0px, env(safe-area-inset-bottom)) !important;
+  padding-left: max(0px, env(safe-area-inset-left)) !important;
+  padding-right: max(0px, env(safe-area-inset-right)) !important;
+}
+
+/* Notch-aware styling */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  ion-header,
+  ion-toolbar {
+    padding-top: env(safe-area-inset-top);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  ion-title {
+    margin-left: env(safe-area-inset-left);
+    margin-right: env(safe-area-inset-right);
+  }
+}
+
+/* Ensure tab bar respects safe area */
+ion-tabs {
+  --ion-safe-area-bottom: env(safe-area-inset-bottom) !important;
+}
+
+ion-tab-bar {
+  padding-bottom: env(safe-area-inset-bottom) !important;
+  padding-left: env(safe-area-inset-left) !important;
+  padding-right: env(safe-area-inset-right) !important;
+}
+
+/* Dialog and Modal Safe Area */
+ion-modal,
+ion-popover,
+.ion-overlay-wrapper {
+  padding-top: env(safe-area-inset-top) !important;
+  padding-left: env(safe-area-inset-left) !important;
+  padding-right: env(safe-area-inset-right) !important;
+  padding-bottom: env(safe-area-inset-bottom) !important;
+}
+
+/**
+ * Loading State Optimization
+ * Ensures loading spinners don't interfere with user interaction
+ */
+
+/* Smooth transitions for loading states */
+ion-card {
+  transition: opacity 0.3s ease, transform 0.2s ease;
+
+  &[style*="opacity: 0.5"] {
+    pointer-events: none;
+  }
+}
+
+/* Loading spinner visibility */
+ion-spinner {
+  --color: inherit !important;
+}
+
+/**
+ * Toast & Alert Styling
+ * Ensures notifications are properly visible on all screen sizes
+ */
+
+ion-toast {
+  --border-radius: 12px !important;
+  --min-width: 300px !important;
+}
+
+ion-alert {
+  --border-radius: 12px !important;
+}
+
+/**
+ * Responsive Content Adjustments
+ */
+
+/* Mobile-first responsive design */
+@media (max-width: 480px) {
+  ion-header {
+    padding-top: max(8px, env(safe-area-inset-top)) !important;
+  }
+
+  ion-content {
+    --scroll-padding-bottom: 16px !important;
+  }
+
+  ion-tab-bar {
+    --min-width: 100% !important;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (orientation: landscape) and (max-height: 500px) {
+  ion-header {
+    padding-top: 0 !important;
+  }
+
+  ion-content {
+    --padding-top: 8px !important;
+  }
+}

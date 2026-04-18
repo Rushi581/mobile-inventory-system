@@ -148,6 +148,26 @@ export class Tab2Page implements OnInit, OnDestroy {
     return !!(field && field.invalid && (field.dirty || field.touched));
   }
 
+  /**
+   * Handle input focus event for keyboard appearance
+   */
+  onInputFocus(): void {
+    document.body.classList.add('keyboard-is-open');
+    setTimeout(() => {
+      const activeElement = document.activeElement as HTMLElement;
+      if (activeElement) {
+        activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
+  }
+
+  /**
+   * Handle input blur event when keyboard closes
+   */
+  onInputBlur(): void {
+    document.body.classList.remove('keyboard-is-open');
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

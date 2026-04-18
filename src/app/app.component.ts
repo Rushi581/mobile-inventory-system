@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { KeyboardService } from './services/keyboard.service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,5 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  constructor() {}
+  constructor(private keyboardService: KeyboardService) {}
 }

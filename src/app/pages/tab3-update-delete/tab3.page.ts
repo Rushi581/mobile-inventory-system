@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonButton, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, ToastController, AlertController } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonButton, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonRefresher, IonRefresherContent, IonSpinner, ToastController, AlertController } from '@ionic/angular/standalone';
 import { pencilOutline, trashOutline, searchOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { InventoryService } from '../../services/inventory.service';
@@ -39,6 +39,9 @@ import { HelpWidgetComponent } from '../../components/help-widget/help-widget';
     IonCardTitle,
     IonCardContent,
     IonIcon,
+    IonRefresher,
+    IonRefresherContent,
+    IonSpinner,
     HelpWidgetComponent
   ],
   templateUrl: 'tab3.page.html',
@@ -77,6 +80,20 @@ export class Tab3Page implements OnInit, OnDestroy {
       stockStatus: ['In Stock', Validators.required],
       specialNote: ['']
     });
+  }
+
+  /**
+   * Pull to refresh
+   */
+  onRefresh(event: any): void {
+    this.inventoryService.loadAllItems();
+    this.foundItem = null;
+    this.searchQuery = '';
+    this.updateForm.reset();
+    setTimeout(() => {
+      event.detail.complete();
+      this.showToast('✓ Inventory refreshed!', 'success');
+    }, 500);
   }
 
   /**
@@ -206,6 +223,26 @@ export class Tab3Page implements OnInit, OnDestroy {
       color
     });
     await toast.present();
+  }
+
+  /**
+   * Handle input focus event for keyboard appearance
+   */
+  onInputFocus(): void {
+    document.body.classList.add('keyboard-is-open');
+    setTimeout(() => {
+      const activeElement = document.activeElement as HTMLElement;
+      if (activeElement) {
+        activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
+  }
+
+  /**
+   * Handle input blur event when keyboard closes
+   */
+  onInputBlur(): void {
+    document.body.classList.remove('keyboard-is-open');
   }
 
   ngOnDestroy(): void {
