@@ -1,172 +1,181 @@
 <!-- Dashboard Page -->
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>📊 Dashboard</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-page>
 
-<ion-content [fullscreen]="true" scroll-y="true">
-  <!-- Network Status Warning -->
-  <div *ngIf="!isOnline" class="alert-banner alert-offline">
-    <ion-icon name="warning-outline"></ion-icon>
-    <div>
-      <strong>No Internet Connection</strong>
-      <p>Some features may not be available. Data will not sync until connection is restored.</p>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>📊 Dashboard</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true" scroll-y="true">
+
+    <!-- Network Status Warning -->
+    <div *ngIf="!isOnline" class="alert-banner alert-offline">
+      <ion-icon name="warning-outline"></ion-icon>
+      <div>
+        <strong>No Internet Connection</strong>
+        <p>Some features may not be available. Data will not sync until connection is restored.</p>
+      </div>
     </div>
-  </div>
 
-  <!-- Loading State with Skeleton -->
-  <div *ngIf="isLoading" class="skeleton-container">
-    <ion-card *ngFor="let i of [1,2,3,4]" class="skeleton-card">
-      <ion-card-header>
-        <ion-card-title>
-          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
-        </ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-skeleton-text animated style="width: 60%; height: 24px; margin-bottom: 8px;"></ion-skeleton-text>
-        <ion-skeleton-text animated style="width: 40%; height: 16px;"></ion-skeleton-text>
-      </ion-card-content>
-    </ion-card>
-  </div>
-
-  <!-- Dashboard Content -->
-  <div *ngIf="!isLoading" class="dashboard-content">
-    <!-- Primary Stats Grid -->
-    <div class="stats-grid">
-      <!-- Total Items Card -->
-      <ion-card class="stat-card stat-primary">
+    <!-- Loading State with Skeleton -->
+    <div *ngIf="isLoading" class="skeleton-container">
+      <ion-card *ngFor="let i of [1,2,3,4]" class="skeleton-card">
         <ion-card-header>
           <ion-card-title>
-            <ion-icon name="cube-outline"></ion-icon>
-            <span>Total Items</span>
+            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
           </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <div class="stat-value">{{ stats.totalItems }}</div>
-          <div class="stat-subtext">Items in Inventory</div>
-        </ion-card-content>
-      </ion-card>
-
-      <!-- In Stock Card -->
-      <ion-card class="stat-card stat-success">
-        <ion-card-header>
-          <ion-card-title>
-            <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <span>In Stock</span>
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <div class="stat-value">{{ stats.inStockCount }}</div>
-          <div class="stat-subtext">Available Items</div>
-        </ion-card-content>
-      </ion-card>
-
-      <!-- Low Stock Alert Card -->
-      <ion-card
-        class="stat-card stat-warning"
-        *ngIf="stats.lowStockCount > 0 || stats.outOfStockCount > 0"
-      >
-        <ion-card-header>
-          <ion-card-title>
-            <ion-icon name="warning-outline"></ion-icon>
-            <span>Alerts</span>
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <div class="stat-value">{{ stats.lowStockCount + stats.outOfStockCount }}</div>
-          <div class="stat-subtext">Low/Out of Stock</div>
-        </ion-card-content>
-      </ion-card>
-
-      <!-- Total Value Card -->
-      <ion-card class="stat-card stat-info">
-        <ion-card-header>
-          <ion-card-title>
-            <ion-icon name="trending-up-outline"></ion-icon>
-            <span>Total Value</span>
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <div class="stat-value" style="font-size: 28px;">{{ '$' + stats.totalValue.toFixed(0) }}</div>
-          <div class="stat-subtext">Inventory Value</div>
+          <ion-skeleton-text animated style="width: 60%; height: 24px; margin-bottom: 8px;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 40%; height: 16px;"></ion-skeleton-text>
         </ion-card-content>
       </ion-card>
     </div>
 
-    <!-- Detailed Stats Section -->
-    <div class="detailed-stats">
-      <ion-card class="detail-card">
-        <ion-card-header>
-          <ion-card-title>
-            <ion-icon name="stats-chart-outline"></ion-icon>
-            Stock Status Overview
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <div class="status-list">
-            <div class="status-item">
-              <div class="status-label">In Stock</div>
-              <div class="status-bar-container">
-                <div class="status-bar" style="width: {{ (stats.inStockCount / stats.totalItems * 100) || 0 }}%; background: #22c55e;"></div>
+    <!-- Dashboard Content -->
+    <div *ngIf="!isLoading" class="dashboard-content">
+
+      <!-- Primary Stats Grid -->
+      <div class="stats-grid">
+
+        <!-- Total Items Card -->
+        <ion-card class="stat-card stat-primary">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="cube-outline"></ion-icon>
+              <span>Total Items</span>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="stat-value">{{ stats.totalItems }}</div>
+            <div class="stat-subtext">Items in Inventory</div>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- In Stock Card -->
+        <ion-card class="stat-card stat-success">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+              <span>In Stock</span>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="stat-value">{{ stats.inStockCount }}</div>
+            <div class="stat-subtext">Available Items</div>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Low Stock Alert Card -->
+        <ion-card
+          class="stat-card stat-warning"
+          *ngIf="stats.lowStockCount > 0 || stats.outOfStockCount > 0"
+        >
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="warning-outline"></ion-icon>
+              <span>Alerts</span>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="stat-value">{{ stats.lowStockCount + stats.outOfStockCount }}</div>
+            <div class="stat-subtext">Low/Out of Stock</div>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Total Value Card -->
+        <ion-card class="stat-card stat-info">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="trending-up-outline"></ion-icon>
+              <span>Total Value</span>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="stat-value" style="font-size: 28px;">{{ '$' + stats.totalValue.toFixed(0) }}</div>
+            <div class="stat-subtext">Inventory Value</div>
+          </ion-card-content>
+        </ion-card>
+
+      </div>
+
+      <!-- Detailed Stats Section -->
+      <div class="detailed-stats">
+        <ion-card class="detail-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="stats-chart-outline"></ion-icon>
+              Stock Status Overview
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="status-list">
+              <div class="status-item">
+                <div class="status-label">In Stock</div>
+                <div class="status-bar-container">
+                  <div class="status-bar" style="width: {{ (stats.inStockCount / stats.totalItems * 100) || 0 }}%; background: #22c55e;"></div>
+                </div>
+                <div class="status-count">{{ stats.inStockCount }}</div>
               </div>
-              <div class="status-count">{{ stats.inStockCount }}</div>
-            </div>
 
-            <div class="status-item">
-              <div class="status-label">Low Stock</div>
-              <div class="status-bar-container">
-                <div class="status-bar" style="width: {{ (stats.lowStockCount / stats.totalItems * 100) || 0 }}%; background: #f59e0b;"></div>
+              <div class="status-item">
+                <div class="status-label">Low Stock</div>
+                <div class="status-bar-container">
+                  <div class="status-bar" style="width: {{ (stats.lowStockCount / stats.totalItems * 100) || 0 }}%; background: #f59e0b;"></div>
+                </div>
+                <div class="status-count">{{ stats.lowStockCount }}</div>
               </div>
-              <div class="status-count">{{ stats.lowStockCount }}</div>
-            </div>
 
-            <div class="status-item">
-              <div class="status-label">Out of Stock</div>
-              <div class="status-bar-container">
-                <div class="status-bar" style="width: {{ (stats.outOfStockCount / stats.totalItems * 100) || 0 }}%; background: #ef4444;"></div>
+              <div class="status-item">
+                <div class="status-label">Out of Stock</div>
+                <div class="status-bar-container">
+                  <div class="status-bar" style="width: {{ (stats.outOfStockCount / stats.totalItems * 100) || 0 }}%; background: #ef4444;"></div>
+                </div>
+                <div class="status-count">{{ stats.outOfStockCount }}</div>
               </div>
-              <div class="status-count">{{ stats.outOfStockCount }}</div>
             </div>
-          </div>
-        </ion-card-content>
-      </ion-card>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <!-- Category Breakdown -->
+      <div class="category-section">
+        <ion-card class="detail-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="cube-outline"></ion-icon>
+              Category Breakdown
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div *ngIf="(stats.categoryBreakdown | keyvalue).length > 0; else noCategories" class="category-list">
+              <div *ngFor="let cat of stats.categoryBreakdown | keyvalue" class="category-item">
+                <div class="category-info">
+                  <span class="category-name">{{ cat.key }}</span>
+                  <span class="category-percentage">
+                    {{ ((cat.value / stats.totalItems) * 100).toFixed(0) }}%
+                  </span>
+                </div>
+                <ion-badge color="primary">{{ cat.value }}</ion-badge>
+              </div>
+            </div>
+            <ng-template #noCategories>
+              <div class="empty-state">
+                <p>No items in inventory</p>
+              </div>
+            </ng-template>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <!-- Footer Message -->
+      <div class="dashboard-footer">
+        <p>Dashboard automatically updates when inventory changes</p>
+      </div>
+
     </div>
 
-    <!-- Category Breakdown -->
-    <div class="category-section">
-      <ion-card class="detail-card">
-        <ion-card-header>
-          <ion-card-title>
-            <ion-icon name="cube-outline"></ion-icon>
-            Category Breakdown
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <div *ngIf="(stats.categoryBreakdown | keyvalue).length > 0; else noCategories" class="category-list">
-            <div *ngFor="let cat of stats.categoryBreakdown | keyvalue" class="category-item">
-              <div class="category-info">
-                <span class="category-name">{{ cat.key }}</span>
-                <span class="category-percentage">
-                  {{ ((cat.value / stats.totalItems) * 100).toFixed(0) }}%
-                </span>
-              </div>
-              <ion-badge color="primary">{{ cat.value }}</ion-badge>
-            </div>
-          </div>
-          <ng-template #noCategories>
-            <div class="empty-state">
-              <p>No items in inventory</p>
-            </div>
-          </ng-template>
-        </ion-card-content>
-      </ion-card>
-    </div>
+  </ion-content>
 
-    <!-- Footer Message -->
-    <div class="dashboard-footer">
-      <p>Dashboard automatically updates when inventory changes</p>
-    </div>
-  </div>
-</ion-content>
-
+</ion-page>

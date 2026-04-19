@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   IonHeader,
@@ -53,6 +53,7 @@ import { takeUntil } from 'rxjs/operators';
   ],
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.scss'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   // Loading and network states

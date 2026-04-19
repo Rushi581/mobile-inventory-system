@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonButton, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonRefresher, IonRefresherContent, IonSpinner, ToastController, AlertController } from '@ionic/angular/standalone';
@@ -45,7 +45,8 @@ import { HelpWidgetComponent } from '../../components/help-widget/help-widget';
     HelpWidgetComponent
   ],
   templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss']
+  styleUrls: ['tab3.page.scss'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class Tab3Page implements OnInit, OnDestroy {
   searchQuery: string = '';
@@ -226,10 +227,9 @@ export class Tab3Page implements OnInit, OnDestroy {
   }
 
   /**
-   * Handle input focus event for keyboard appearance
+   * Handle input focus event - scroll into view when keyboard opens
    */
   onInputFocus(): void {
-    document.body.classList.add('keyboard-is-open');
     setTimeout(() => {
       const activeElement = document.activeElement as HTMLElement;
       if (activeElement) {
@@ -239,10 +239,10 @@ export class Tab3Page implements OnInit, OnDestroy {
   }
 
   /**
-   * Handle input blur event when keyboard closes
+   * Handle input blur event - cleanup when keyboard closes
    */
   onInputBlur(): void {
-    document.body.classList.remove('keyboard-is-open');
+    // Ionic handles keyboard closure automatically
   }
 
   /**

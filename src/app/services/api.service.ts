@@ -68,12 +68,14 @@ export class ApiService {
 
   /**
    * GET all items from the database
+   * NOTE: NO RETRY on initial list load - fixes UI freeze caused by retry timeout stacking
+   * If request fails, InventoryService will retry manually or use fallback empty array
    * @returns Observable<Item[]> - Array of all inventory items
    */
   getAllItems(): Observable<Item[]> {
     return this.http.get<any[]>(this.apiUrl + '/').pipe(
       timeout(this.timeoutMs),
-      retry(this.retryAttempts),
+      // ❌ NO RETRY HERE - prevents timeout stacking from freezing the UI
       map((items: any[]) => items.map(item => this.fromServerFormat(item))),
       catchError(this.handleError)
     );

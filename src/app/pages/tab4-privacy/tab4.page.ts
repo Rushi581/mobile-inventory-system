@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonText } from '@ionic/angular/standalone';
 import { shieldCheckmarkOutline, lockClosedOutline, checkmarkDoneOutline, keyOutline, warningOutline } from 'ionicons/icons';
@@ -37,7 +37,8 @@ interface SecurityInfo {
     HelpWidgetComponent
   ],
   templateUrl: 'tab4.page.html',
-  styleUrls: ['tab4.page.scss']
+  styleUrls: ['tab4.page.scss'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class Tab4Page {
   securityInfos: SecurityInfo[] = [

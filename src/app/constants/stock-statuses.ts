@@ -1,1 +1,35 @@
-/**\n * Stock Status Constants (Issue #23: Remove hardcoded magic strings)\n * Centralized definitions for all stock status values\n */\n\nexport const STOCK_STATUSES = {\n  IN_STOCK: 'In Stock',\n  LOW_STOCK: 'Low Stock',\n  OUT_OF_STOCK: 'Out of Stock'\n} as const;\n\nexport type StockStatus = typeof STOCK_STATUSES[keyof typeof STOCK_STATUSES];\n\n/**\n * Get all stock status values as an array\n */\nexport function getStockStatusArray(): StockStatus[] {\n  return Object.values(STOCK_STATUSES);\n}\n\n/**\n * Get badge class for stock status\n */\nexport function getStockBadgeClass(status: StockStatus): string {\n  switch (status) {\n    case STOCK_STATUSES.IN_STOCK:\n      return 'badge-success';\n    case STOCK_STATUSES.LOW_STOCK:\n      return 'badge-warning';\n    case STOCK_STATUSES.OUT_OF_STOCK:\n      return 'badge-danger';\n    default:\n      return 'badge-primary';\n  }\n}\n
+/**
+ * Stock Status Constants (Issue #23: Remove hardcoded magic strings)
+ * Centralized definitions for all stock status values
+ */
+
+export const STOCK_STATUSES = {
+  IN_STOCK: 'In Stock',
+  LOW_STOCK: 'Low Stock',
+  OUT_OF_STOCK: 'Out of Stock'
+} as const;
+
+export type StockStatus = typeof STOCK_STATUSES[keyof typeof STOCK_STATUSES];
+
+/**
+ * Get all stock status values as an array
+ */
+export function getStockStatusArray(): StockStatus[] {
+  return Object.values(STOCK_STATUSES);
+}
+
+/**
+ * Get badge class for stock status
+ */
+export function getStockBadgeClass(status: StockStatus): string {
+  switch (status) {
+    case STOCK_STATUSES.IN_STOCK:
+      return 'badge-success';
+    case STOCK_STATUSES.LOW_STOCK:
+      return 'badge-warning';
+    case STOCK_STATUSES.OUT_OF_STOCK:
+      return 'badge-danger';
+    default:
+      return 'badge-primary';
+  }
+}

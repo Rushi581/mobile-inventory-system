@@ -1,158 +1,151 @@
-/* Item Card Component Styles */
+/* Premium Item Card Component */
 
 :host {
   display: block;
-  margin: 8px 0;
+  margin: 6px 0;
 }
 
 .item-card {
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid #e5e7eb;
-  transition: all 300ms ease-in-out;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  border: 1px solid #e2e8f0; // Slate 200
+  background: #ffffff;
+  transition: all 150ms ease-out;
   margin: 0;
   overflow: hidden;
 
   &:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+    border-color: #cbd5e1; // Slate 300
+    transform: translateY(-1px);
   }
 
   &:active {
     transform: translateY(0);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   }
 }
 
 ion-card-header {
-  background-color: #f8f9fa;
+  background-color: #ffffff;
   padding: 16px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #f1f5f9;
 
   .card-header-content {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
   }
 
   .header-top {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
   }
 
   .item-name {
-    font-size: 18px;
-    font-weight: 700;
-    color: #1f2937;
+    font-size: 16px;
+    font-weight: 600;
+    color: #0f172a; // Slate 900
     margin: 0;
-    flex: 1;
+    line-height: 1.3;
   }
 
   .badge-featured {
-    background-color: #fbbf24;
-    color: #78350f;
-    font-weight: 700;
+    background-color: #fef9c3; // Yellow 100
+    color: #a16207; // Yellow 800
+    border: 1px solid #fde047; // Yellow 300
+    font-weight: 600;
     padding: 4px 8px;
-    border-radius: 8px;
-    font-size: 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    letter-spacing: 0.02em;
     white-space: nowrap;
+    text-transform: uppercase;
   }
 
   .badges-container {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
 
     ion-badge {
-      font-weight: 600;
-      padding: 6px 12px;
-      border-radius: 12px;
-      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.05em;
+
+      &[color="success"] { background: #d1fae5; color: #059669; }
+      &[color="warning"] { background: #fef3c7; color: #d97706; }
+      &[color="danger"] { background: #fee2e2; color: #dc2626; }
+      &[color="medium"] { background: #f1f5f9; color: #475569; }
     }
   }
 }
 
 ion-card-content {
-  padding: 16px;
+  padding: 0; // Strip standard padding so rows hit edges
 
   .item-details {
     display: flex;
     flex-direction: column;
-    gap: 12px;
   }
 
   .detail-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #f3f4f6;
+    padding: 12px 16px;
+    background: #f8fafc; // Slate 50
+    border-bottom: 1px solid #f1f5f9; // Slate 100
 
     &:last-child {
       border-bottom: none;
     }
 
     &.total-price {
-      padding: 12px 8px;
-      background-color: #f0f4ff;
-      border-radius: 8px;
-      border-bottom: none !important;
+      background-color: #ffffff;
+      padding: 16px;
     }
 
     .detail-label {
-      font-weight: 600;
-      color: #6b7280;
-      font-size: 14px;
+      font-weight: 500;
+      color: #64748b; // Slate 500
+      font-size: 13px;
     }
 
     .detail-value {
-      color: #1f2937;
+      color: #1e293b; // Slate 800
       font-weight: 500;
-      font-size: 14px;
+      font-size: 13px;
       text-align: right;
 
       &.highlight {
-        color: #5b5fc7;
+        color: #0f172a;
         font-weight: 700;
-        font-size: 16px;
+        font-size: 15px;
       }
     }
   }
 }
 
-/* Responsive Design */
+/* Responsive Formatting */
 @media (max-width: 480px) {
   ion-card-header {
-    padding: 12px;
-
-    .header-top {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
+    padding: 14px;
+    
     .item-name {
-      font-size: 16px;
-    }
-
-    .badges-container {
-      width: 100%;
+      font-size: 15px;
     }
   }
 
   ion-card-content {
-    padding: 12px;
-
     .detail-row {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 4px;
-
-      .detail-value {
-        text-align: left;
-      }
+      padding: 10px 14px;
+      &.total-price { padding: 14px; }
     }
   }
 }

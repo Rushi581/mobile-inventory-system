@@ -41,16 +41,29 @@ export class InventoryService {
    */
   loadAllItems(): void {
     this.loadingSubject.next(true);
+    
+    // CRITICAL: Fast fallback timeout ensures loading state ALWAYS releases
+    // Set to 8 seconds to beat the 10-second API timeout (prevents UI freeze)
+    const timeoutId = setTimeout(() => {
+      console.warn('API request timeout - loading empty inventory');
+      this.itemsSubject.next([]);  // Set empty array to allow UI rendering
+      this.loadingSubject.next(false);  // ⚡ CRITICAL: Release loading lock FAST
+      this.errorSubject.next('Unable to load inventory - network timeout');
+    }, 8000);  // 8 second fallback timeout - MUST BE LESS THAN API TIMEOUT!
+
     this.apiService.getAllItems().subscribe({
       next: (items: Item[]) => {
+        clearTimeout(timeoutId);  // Cancel the safety timeout
         this.itemsSubject.next(items);
         this.loadingSubject.next(false);
         this.errorSubject.next(null);
       },
       error: (error) => {
+        clearTimeout(timeoutId);  // Cancel the safety timeout
         console.error('Error loading items:', error);
+        this.itemsSubject.next([]);  // Set empty array to allow UI rendering
+        this.loadingSubject.next(false);  // ⚡ CRITICAL: Release loading lock FAST
         this.errorSubject.next(error.message);
-        this.loadingSubject.next(false);
       }
     });
   }
