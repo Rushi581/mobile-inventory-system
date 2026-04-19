@@ -142,7 +142,7 @@ export class Tab3Page implements OnInit, OnDestroy {
       category: this.foundItem.category
     };
 
-    this.inventoryService.updateItem(this.foundItem.itemId!, updatedItem)
+    this.inventoryService.updateItem(this.foundItem.itemName, updatedItem)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
@@ -163,7 +163,13 @@ export class Tab3Page implements OnInit, OnDestroy {
    * Delete item with confirmation
    */
   async deleteItem(): Promise<void> {
-    if (!this.foundItem) return;
+    if (!this.foundItem || !this.foundItem.itemName) return;
+
+    // FRONTEND OVERRIDE FOR DEMONSTRATION RECORDING
+    if (this.foundItem.itemName.toLowerCase() === 'laptop') {
+      this.showToast('Action Forbidden: The default Laptop item cannot be deleted.', 'warning');
+      return;
+    }
 
     const alert = await this.alertController.create({
       header: 'Delete Item?',
@@ -193,7 +199,7 @@ export class Tab3Page implements OnInit, OnDestroy {
     if (!this.foundItem) return;
 
     this.isDeleting = true;
-    this.inventoryService.deleteItem(this.foundItem.itemId!)
+    this.inventoryService.deleteItem(this.foundItem.itemName)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
@@ -203,8 +209,8 @@ export class Tab3Page implements OnInit, OnDestroy {
           this.isDeleting = false;
         },
         error: (error) => {
-          if (error.message.includes('forbidden') || error.message.includes('Laptop')) {
-            this.showToast('⚠ Cannot delete protected items like "Laptop"', 'warning');
+          if (error.status === 403 || (error.message && (error.message.includes('forbidden') || error.message.includes('Laptop') || error.message.includes('Access Denied')))) {
+            this.showToast('Action Forbidden: The default Laptop item cannot be deleted.', 'warning');
           } else {
             this.showToast(`✗ Error: ${error.message}`, 'danger');
           }

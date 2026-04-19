@@ -51,20 +51,13 @@ $shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05)
 
 // ===== TYPOGRAPHY =====
 $font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-$font-size-xs: 12px;
-$font-size-sm: 14px;
 $font-size-base: 15px; // Enterprise standard for data density
 $font-size-lg: 18px;
-$font-size-xl: 20px;
 
 $line-height-normal: 1.5;
 
 // ===== GLOBAL STYLES =====
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   font-family: $font-family-base;
@@ -88,29 +81,15 @@ ion-app {
 .text-inverse { color: $text-inverse !important; }
 
 /* ===== IONIC OVERRIDES (Enterprise Polish) ===== */
-
-// Toolbars (Strict Contrast)
 ion-toolbar {
   --background: $surface;
   --color: $text-primary;
   --border-width: 0 0 1px 0;
   --border-color: $border-color;
   
-  &.toolbar-primary {
-    --background: $primary;
-    --color: $text-inverse;
-  }
-  &.toolbar-success {
-    --background: $success;
-    --color: $text-inverse;
-  }
-  &.toolbar-danger {
-    --background: $danger;
-    --color: $text-inverse;
-  }
+  &.toolbar-primary { --background: $primary; --color: $text-inverse; }
 }
 
-// Cards
 ion-card {
   --background: $surface;
   --color: $text-primary;
@@ -118,54 +97,29 @@ ion-card {
   border-radius: $border-radius-lg;
   box-shadow: $shadow-md;
   border: 1px solid $border-color;
-  contain: content; // Performance
 
   ion-card-header {
     padding: $spacing-lg $spacing-lg $spacing-sm $spacing-lg;
     background: $surface;
-    border-bottom: 1px solid transparent;
   }
-
   ion-card-title {
     font-size: $font-size-lg;
     font-weight: 600;
-    color: $text-primary;
-    letter-spacing: -0.01em;
   }
-
   ion-card-content {
     padding: $spacing-lg;
     color: $text-secondary;
-    font-size: $font-size-base;
-    line-height: $line-height-normal;
   }
 }
 
-// Buttons (Sleek, No Rounded Pills unless asked)
 ion-button {
   --border-radius: $border-radius-md;
   --box-shadow: $shadow-sm;
   font-weight: 500;
-  letter-spacing: 0.02em;
   
-  &.button-primary {
-    --background: $accent;
-    --background-hover: #1d4ed8;
-    --color: $text-inverse;
-  }
-  &.button-success {
-    --background: $success;
-    --background-hover: #047857;
-    --color: $text-inverse;
-  }
-  &.button-danger {
-    --background: $danger;
-    --background-hover: #b91c1c;
-    --color: $text-inverse;
-  }
+  &.button-primary { --background: $accent; --color: $text-inverse; }
 }
 
-// Data Inputs
 ion-item {
   --background: transparent;
   --border-color: $border-color;
@@ -177,20 +131,9 @@ ion-item {
   ion-label {
     color: $text-secondary !important;
     font-weight: 500;
-    font-size: $font-size-sm;
-  }
-
-  &.item-has-focus ion-label {
-    color: $accent !important;
   }
 }
 
-ion-input, ion-select, ion-textarea {
-  --color: $text-primary;
-  font-size: $font-size-base;
-}
-
-// Searchbars
 ion-searchbar {
   --background: #f1f5f9;
   --color: $text-primary;
@@ -198,10 +141,8 @@ ion-searchbar {
   --border-radius: $border-radius-md;
   --box-shadow: none;
   --icon-color: #64748b;
-  padding: $spacing-sm $spacing-md;
 }
 
-// Badges (Strict Legibility)
 ion-badge {
   font-weight: 600;
   padding: 4px 8px;
@@ -210,31 +151,10 @@ ion-badge {
   text-transform: uppercase;
   letter-spacing: 0.05em;
 
-  // We explicitly combine a vivid background with a high-contrast text color
+  // Vivid background with strict high-contrast text color
   &.badge-success { background: $success-bg; color: $success; }
   &.badge-danger { background: $danger-bg; color: $danger; }
   &.badge-warning { background: $warning-bg; color: $warning; }
   &.badge-info { background: $info-bg; color: $info; }
   &.badge-primary { background: #e2e8f0; color: $text-primary; }
-}
-
-// Global Help Alert Dialog
-ion-alert {
-  --backdrop-opacity: 0.4;
-  
-  .alert-wrapper {
-    border-radius: $border-radius-xl;
-    box-shadow: $shadow-lg;
-  }
-  .alert-title {
-    color: $text-primary;
-    font-weight: 600;
-  }
-  .alert-message {
-    color: $text-secondary;
-  }
-  .alert-button {
-    color: $accent;
-    font-weight: 500;
-  }
 }
