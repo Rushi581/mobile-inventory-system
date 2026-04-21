@@ -53,6 +53,18 @@ export class ApiService {
    * Convert snake_case (Server) to camelCase (TypeScript)
    */
   private fromServerFormat(data: any): Item {
+    // Normalize stock status to match TypeScript enum 'In Stock' | 'Low Stock' | 'Out of Stock'
+    let rawStatus = data.stock_status || data.stockStatus;
+    let normalizedStockStatus = rawStatus;
+    
+    if (rawStatus) {
+      const lower = String(rawStatus).toLowerCase().trim().replace(/_/g, ' ');
+      if (lower.includes('in stock')) normalizedStockStatus = 'In Stock';
+      else if (lower.includes('low stock')) normalizedStockStatus = 'Low Stock';
+      else if (lower.includes('out of stock')) normalizedStockStatus = 'Out of Stock';
+      else normalizedStockStatus = 'Out of Stock'; // Safe default
+    }
+
     return {
       itemId: data.item_id || data.itemId,
       itemName: data.item_name || data.itemName,
@@ -60,7 +72,7 @@ export class ApiService {
       quantity: data.quantity,
       price: data.price,
       supplierName: data.supplier_name || data.supplierName,
-      stockStatus: data.stock_status || data.stockStatus,
+      stockStatus: normalizedStockStatus,
       featuredItem: data.featured_item !== undefined ? data.featured_item : data.featuredItem,
       specialNote: data.special_note || data.specialNote
     };
