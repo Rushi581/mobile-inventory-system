@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA, SecurityContext } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonButton, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonRefresher, IonRefresherContent, IonSpinner, ToastController, AlertController } from '@ionic/angular/standalone';
@@ -9,6 +9,7 @@ import { Item } from '../../models/item.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HelpWidgetComponent } from '../../components/help-widget/help-widget';
+import { DomSanitizer } from '@angular/platform-browser';
 
 /*
  * Tab 3 - Update & Delete Page
@@ -62,7 +63,8 @@ export class Tab3Page implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private inventoryService: InventoryService,
     private toastController: ToastController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private sanitizer: DomSanitizer
   ) {
     addIcons({ pencilOutline, trashOutline, searchOutline });
   }
@@ -135,9 +137,24 @@ export class Tab3Page implements OnInit, OnDestroy {
     }
 
     this.isUpdating = true;
+    
+    const quantity = parseInt(this.updateForm.value.quantity, 10);
+    
+    if (isNaN(quantity) || quantity < 0) {
+      this.showToast('Invalid quantity entered', 'danger');
+      this.isUpdating = false;
+      return;
+    }
+
+    const sanitizedNote = this.updateForm.value.specialNote 
+      ? this.sanitizer.sanitize(SecurityContext.HTML, this.updateForm.value.specialNote) || ''
+      : '';
+
     const updatedItem: Item = {
       ...this.foundItem,
       ...this.updateForm.value,
+      quantity: quantity,
+      specialNote: sanitizedNote,
       price: this.foundItem.price,
       category: this.foundItem.category
     };

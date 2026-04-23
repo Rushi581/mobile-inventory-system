@@ -101,14 +101,26 @@ export class InventoryService {
 
   /**
    * Update existing item by itemName (API requires name)
+   * BUG FIX: Server PUT response may return a success message instead of the
+   * full updated item object. Using the server response directly caused
+   * fromServerFormat() to produce an item with all undefined fields, making
+   * the item "disappear" from the list. Fix: use the local updatedItem data
+   * (which has all correct fields) to update the BehaviorSubject list.
    */
   updateItem(itemName: string, updatedItem: Item): Observable<Item> {
     this.loadingSubject.next(true);
     return this.apiService.updateItem(itemName, updatedItem).pipe(
-      tap((updated: Item) => {
+      tap((serverResponse: Item) => {
         const currentItems = this.itemsSubject.getValue();
+        // Use local updatedItem data as the source of truth, since the server
+        // response may not contain the full item fields.
+        // Only use server response if it has a valid itemName (meaning it
+        // actually returned the full updated item object).
+        const itemToUse = serverResponse && serverResponse.itemName
+          ? serverResponse
+          : updatedItem;
         const updatedItems = currentItems.map(item =>
-          item.itemName === itemName ? updated : item
+          item.itemName === itemName ? itemToUse : item
         );
         this.itemsSubject.next(updatedItems);
         this.loadingSubject.next(false);
